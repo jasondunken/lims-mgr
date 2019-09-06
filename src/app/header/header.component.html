@@ -1,0 +1,9 @@
+<div>
+  <div>LIMS task manager</div>
+  <div>
+    <span><a [routerLink]="['/tasks']" routerLinkActive="router-link-active">Tasks</a></span>
+    <span><a [routerLink]="['/users']" routerLinkActive="router-link-active">Users</a></span>
+    <span><a [routerLink]="['/workflows']" routerLinkActive="router-link-active">Workflows</a></span>
+    <span *ngIf="auth.isAuthenticated()"><a [routerLink]="['']" routerLinkActive="router-link-active" (click)="logout()">Logout</a></span>
+  </div>
+</div>
