@@ -1,3 +1,12 @@
-Login
-<label>Username: <input matInput id="usr-name"/></label>
-<label>Password: <input matInput id="password" type="password"/></label>
+<div>
+  <h1>Login</h1>
+  <div>
+    <label>Username: <input id="usr-name" #usr_name required/></label>
+  </div>
+  <div>
+    <label
+      >Password: <input id="password" type="password" #password required
+    /></label>
+  </div>
+  <div><button (click)="login(usr_name, password)">Login</button></div>
+</div>
