@@ -15,6 +15,5 @@ export class TasklistComponent implements OnInit {
 
   ngOnInit() {
     this.taskList = this.fileMgr.getTasks();
-    console.log('tasklist.length: ' + this.taskList.length);
   }
 }
