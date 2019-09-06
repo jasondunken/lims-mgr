@@ -1,3 +1,23 @@
-<p>
-  users works!
-</p>
+<ng-container *ngIf="userList && userList.length > 0">
+  <table>
+    <colgroup>
+      <col width="150" />
+      <col width="150" />
+      <col width="150" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th colspan="1">Name</th>
+        <th colspan="1">Date Added</th>
+        <th colspan="1">Date Disabled</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userList">
+        <td colspan="1">{{ user.username }}</td>
+        <td colspan="1">{{ user.dateAdded }}</td>
+        <td colspan="1">{{ user.dateDisabled }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

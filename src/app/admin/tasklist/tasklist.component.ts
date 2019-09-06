@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FileManagerService } from 'src/app/services/file-manager.service';
+
+import { Task } from 'src/app/models/task.model';
 
 @Component({
   selector: 'app-tasklist',
@@ -6,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tasklist.component.css']
 })
 export class TasklistComponent implements OnInit {
+  taskList: Task[] = [];
 
-  constructor() { }
+  constructor(private fileMgr: FileManagerService) {}
 
   ngOnInit() {
+    this.taskList = this.fileMgr.getTasks();
+    console.log('tasklist.length: ' + this.taskList.length);
   }
-
 }

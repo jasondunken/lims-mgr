@@ -4,7 +4,7 @@ export interface Task {
   taskNum: number;
   user: User;
   date: string;
-  file: string;
+  filePath: string;
   processor: string;
   workflow: string;
   status: string;

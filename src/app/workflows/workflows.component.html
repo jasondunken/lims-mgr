@@ -1,3 +1,26 @@
-<p>
-  workflows works!
-</p>
+<ng-container *ngIf="taskList && taskList.length > 0">
+  <table>
+    <colgroup>
+      <col width="100" />
+      <col width="100" />
+      <col width="250" />
+      <col width="250" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th colspan="1">Workflow</th>
+        <th colspan="1">Name</th>
+        <th colspan="1">Processor</th>
+        <th colspan="1">File Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of taskList">
+        <td colspan="1">{{ task.taskNum }}</td>
+        <td colspan="1">{{ task.workflow }}</td>
+        <td colspan="1">{{ task.processor }}</td>
+        <td colspan="1">{{ task.filePath }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>

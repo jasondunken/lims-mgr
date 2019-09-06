@@ -1,3 +1,23 @@
-<p>
-  tasklist works!
-</p>
+<ng-container *ngIf="taskList && taskList.length > 0">
+  <table>
+    <colgroup>
+      <col width="100" />
+      <col width="100" />
+      <col width="250" />
+    </colgroup>
+    <thead>
+      <tr>
+        <th colspan="1">Task</th>
+        <th colspan="1">Status</th>
+        <th colspan="1">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of taskList">
+        <td colspan="1">{{ task.taskNum }}</td>
+        <td colspan="1">{{ task.status }}</td>
+        <td colspan="1">{{ task.date }}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
