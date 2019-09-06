@@ -11,9 +11,10 @@ import { TasklistComponent } from './admin/tasklist/tasklist.component';
 import { UsersComponent } from './admin/users/users.component';
 import { HeaderComponent } from './header/header.component';
 import { WorkflowsComponent } from './workflows/workflows.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, AdminComponent, MainComponent, TasklistComponent, UsersComponent, HeaderComponent, WorkflowsComponent],
+  declarations: [AppComponent, LoginComponent, AdminComponent, MainComponent, TasklistComponent, UsersComponent, HeaderComponent, WorkflowsComponent, TaskDetailComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent]

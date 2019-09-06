@@ -46,6 +46,14 @@ export class FileManagerService {
     return this.testTasks;
   }
 
+  getTask(id: number): Task {
+    for (const task of this.getTasks()) {
+      if (task.taskNum === id) {
+        return task;
+      }
+    }
+  }
+
   getUsers(): User[] {
     return this.users;
   }
