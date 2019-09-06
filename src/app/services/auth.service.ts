@@ -13,7 +13,6 @@ export class AuthService {
   }
 
   authenticateUser(usrName: string, password: string) {
-    console.log('login from: ' + usrName + '.' + password);
     // for test purposes
     this.authenticated = true; // if authenticated by authentication server
   }
