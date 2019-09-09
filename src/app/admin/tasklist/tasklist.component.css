@@ -1,0 +1,15 @@
+table.mat-table {
+  width: 88%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th.mat-header-cell,
+td.mat-cell {
+  padding: 24px;
+  width: 22%;
+}
+
+.centered {
+  width: 100%;
+}

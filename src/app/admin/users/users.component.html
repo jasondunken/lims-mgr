@@ -1,23 +1,23 @@
-<ng-container *ngIf="userList && userList.length > 0">
-  <table>
-    <colgroup>
-      <col width="150" />
-      <col width="150" />
-      <col width="150" />
-    </colgroup>
-    <thead>
-      <tr>
-        <th colspan="1">Name</th>
-        <th colspan="1">Date Added</th>
-        <th colspan="1">Date Disabled</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of userList">
-        <td colspan="1">{{ user.username }}</td>
-        <td colspan="1">{{ user.dateAdded }}</td>
-        <td colspan="1">{{ user.dateDisabled }}</td>
-      </tr>
-    </tbody>
-  </table>
-</ng-container>
+<div class="centered">
+  <ng-container *ngIf="userList && userList.length > 0">
+    <table mat-table [dataSource]="userList">
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date-added">
+        <th mat-header-cell *matHeaderCellDef>Date Added</th>
+        <td mat-cell *matCellDef="let element">{{ element.dateAdded }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date-disabled">
+        <th mat-header-cell *matHeaderCellDef>Date Added</th>
+        <td mat-cell *matCellDef="let element">{{ element.dateDisabled }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
+    </table>
+  </ng-container>
+</div>

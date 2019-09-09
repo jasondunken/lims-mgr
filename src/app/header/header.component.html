@@ -1,9 +1,12 @@
-<div>
-  <div>LIMS task manager</div>
-  <div>
-    <span><a [routerLink]="['/tasks']" routerLinkActive="router-link-active">Tasks</a></span>
-    <span><a [routerLink]="['/users']" routerLinkActive="router-link-active">Users</a></span>
-    <span><a [routerLink]="['/workflows']" routerLinkActive="router-link-active">Workflows</a></span>
-    <span *ngIf="auth.isAuthenticated()"><button (click)="logout()">Logout</button></span>
-  </div>
+<div class="centered">
+  <mat-card>
+    <h1>LIMS task manager</h1>
+    <div>
+      <button mat-button (click)="gotoTasks()">Tasks</button>
+      <button mat-button (click)="gotoUsers()">Users</button>
+      <button mat-button (click)="gotoWorkflows()">Workflows</button>
+
+      <span *ngIf="auth.isAuthenticated()"><button mat-button (click)="logout()">Logout</button></span>
+    </div>
+  </mat-card>
 </div>

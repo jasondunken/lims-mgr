@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { MatPaginator } from '@angular/material';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { FileManagerService } from '../services/file-manager.service';
 
@@ -10,6 +13,7 @@ import { Task } from '../models/task.model';
   styleUrls: ['./workflows.component.css']
 })
 export class WorkflowsComponent implements OnInit {
+  columnNames = ['workflow', 'name', 'processor', 'file-location'];
   taskList: Task[];
 
   constructor(private fileMgr: FileManagerService) {}

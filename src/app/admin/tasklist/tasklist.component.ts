@@ -9,6 +9,7 @@ import { Task } from 'src/app/models/task.model';
   styleUrls: ['./tasklist.component.css']
 })
 export class TasklistComponent implements OnInit {
+  columnNames = ['task', 'status', 'date'];
   taskList: Task[] = [];
 
   constructor(private fileMgr: FileManagerService) {}

@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  columnNames = ['username', 'date-added', 'date-disabled'];
   userList: User[];
 
   constructor(private fileMgr: FileManagerService) {}

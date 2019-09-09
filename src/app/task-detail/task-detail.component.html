@@ -1,8 +1,21 @@
-<ng-container *ngIf="task">
-  <div>Status: {{ task.status }}</div>
-  <div>Date: {{ task.date }}</div>
-  <div>File: {{ task.filePath }}</div>
-  <div>Processor: {{ task.processor }}</div>
-  <div>Workflow: {{ task.workflow }}</div>
-  <div>Status: {{ task.error }}</div>
-</ng-container>
+<div class="centered">
+  <ng-container matCard *ngIf="task">
+    <mat-card class="task-detail">
+      <mat-card-header>
+        <mat-card-title>Task ID {{ task.taskNum }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Status: {{ task.status }}</p>
+        <p>Date: {{ task.date }}</p>
+        <p>File: {{ task.filePath }}</p>
+        <p>Processor: {{ task.processor }}</p>
+        <p>Workflow: {{ task.workflow }}</p>
+        <p>Error: {{ task.error }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>button1</button>
+        <button mat-button>button2</button>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>

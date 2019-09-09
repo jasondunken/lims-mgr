@@ -1,26 +1,28 @@
-<ng-container *ngIf="taskList && taskList.length > 0">
-  <table>
-    <colgroup>
-      <col width="100" />
-      <col width="100" />
-      <col width="250" />
-      <col width="250" />
-    </colgroup>
-    <thead>
-      <tr>
-        <th colspan="1">Workflow</th>
-        <th colspan="1">Name</th>
-        <th colspan="1">Processor</th>
-        <th colspan="1">File Location</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let task of taskList">
-        <td colspan="1">{{ task.taskNum }}</td>
-        <td colspan="1">{{ task.workflow }}</td>
-        <td colspan="1">{{ task.processor }}</td>
-        <td colspan="1">{{ task.filePath }}</td>
-      </tr>
-    </tbody>
-  </table>
-</ng-container>
+<div class="centered">
+  <ng-container *ngIf="taskList && taskList.length > 0">
+    <table mat-table [dataSource]="taskList">
+      <ng-container matColumnDef="workflow">
+        <th mat-header-cell *matHeaderCellDef>Workflow</th>
+        <td mat-cell *matCellDef="let element">{{ element.taskNum }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.workflow }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="processor">
+        <th mat-header-cell *matHeaderCellDef>Processor</th>
+        <td mat-cell *matCellDef="let element">{{ element.processor }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="file-location">
+        <th mat-header-cell *matHeaderCellDef>File Location</th>
+        <td mat-cell *matCellDef="let element">{{ element.filePath }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
+    </table>
+  </ng-container>
+</div>
