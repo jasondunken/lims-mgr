@@ -1,3 +1,23 @@
-<p>
-  task-editor works!
-</p>
+<div class="centered">
+  <mat-card class="task-detail">
+    <mat-card-header>
+      <mat-card-title *ngIf="task">Edit Task</mat-card-title>
+      <mat-card-title *ngIf="!task">Add Task</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <label for="name">Name<input mat-input type="text" name="name"/></label>
+      </div>
+      <div>
+        <label for="processor">Processor<input mat-input type="text" name="processor"/></label>
+      </div>
+      <div>
+        <label for="filePath">File Path<input mat-input type="text" name="filePath"/></label>
+      </div>
+    </mat-card-content>
+    <div class="controls">
+      <button mat-button class="control" (click)="saveTask()">Save</button>
+      <button mat-button class="control" (click)="cancel()">Cancel</button>
+    </div>
+  </mat-card>
+</div>

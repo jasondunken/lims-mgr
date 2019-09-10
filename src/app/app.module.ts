@@ -20,6 +20,7 @@ import { HeaderComponent } from './header/header.component';
 import { WorkflowsComponent } from './workflows/workflows.component';
 import { TaskDetailComponent } from './admin/task-detail/task-detail.component';
 import { TaskEditorComponent } from './admin/task-editor/task-editor.component';
+import { UserEditorComponent } from './admin/user-editor/user-editor.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TaskEditorComponent } from './admin/task-editor/task-editor.component';
     HeaderComponent,
     WorkflowsComponent,
     TaskDetailComponent,
-    TaskEditorComponent
+    TaskEditorComponent,
+    UserEditorComponent
   ],
   imports: [
     BrowserModule,

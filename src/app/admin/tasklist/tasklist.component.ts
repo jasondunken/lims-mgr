@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { FileManagerService } from 'src/app/services/file-manager.service';
 
 import { Task } from 'src/app/models/task.model';
@@ -12,9 +14,13 @@ export class TasklistComponent implements OnInit {
   columnNames = ['task', 'status', 'date'];
   taskList: Task[] = [];
 
-  constructor(private fileMgr: FileManagerService) {}
+  constructor(private fileMgr: FileManagerService, private router: Router) {}
 
   ngOnInit() {
     this.taskList = this.fileMgr.getTasks();
+  }
+
+  gotoTaskDetail(id: number) {
+    this.router.navigateByUrl('/tasks/detail/' + id);
   }
 }

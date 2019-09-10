@@ -13,6 +13,7 @@ import { Task } from '../models/task.model';
   styleUrls: ['./workflows.component.css']
 })
 export class WorkflowsComponent implements OnInit {
+  editingTask = false;
   columnNames = ['workflow', 'name', 'processor', 'file-location'];
   taskList: Task[];
 
@@ -20,5 +21,17 @@ export class WorkflowsComponent implements OnInit {
 
   ngOnInit() {
     this.taskList = this.fileMgr.getTasks();
+  }
+
+  addWorkflow(): void {
+    this.editingTask = true;
+  }
+
+  removeWorkflow(): void {
+    // remove task from tasklist
+  }
+
+  isEditing($event): void {
+    this.editingTask = $event;
   }
 }

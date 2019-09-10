@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { Router } from '@angular/router';
+
 import { FileManagerService } from '../../services/file-manager.service';
 import { Task } from '../../models/task.model';
 
@@ -11,10 +13,22 @@ import { Task } from '../../models/task.model';
 })
 export class TaskDetailComponent implements OnInit {
   task: Task;
-  constructor(private route: ActivatedRoute, private fileMgr: FileManagerService) {}
+  constructor(private route: ActivatedRoute, private fileMgr: FileManagerService, private router: Router) {}
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.task = this.fileMgr.getTask(id);
+  }
+
+  rerunTask(id: number): void {
+    // re-run existing task
+  }
+
+  cancelTask(id: number): void {
+    // cancel task
+  }
+
+  back(): void {
+    this.router.navigateByUrl('/tasks');
   }
 }

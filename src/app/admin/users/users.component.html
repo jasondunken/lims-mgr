@@ -26,4 +26,7 @@
       <button mat-button class="control" (click)="disableUser()">Disable User</button>
     </div>
   </mat-card>
+  <ng-container *ngIf="editingUser">
+    <app-user-editor (editing)="isEditing($event)"></app-user-editor>
+  </ng-container>
 </div>

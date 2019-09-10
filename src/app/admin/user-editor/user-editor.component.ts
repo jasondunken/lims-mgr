@@ -1,18 +1,18 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-task-editor',
-  templateUrl: './task-editor.component.html',
-  styleUrls: ['./task-editor.component.css']
+  selector: 'app-user-editor',
+  templateUrl: './user-editor.component.html',
+  styleUrls: ['./user-editor.component.css']
 })
-export class TaskEditorComponent implements OnInit {
+export class UserEditorComponent implements OnInit {
   @Output() editing = new EventEmitter<boolean>();
   constructor() {}
 
   ngOnInit() {}
 
-  saveTask(): void {
-    // add new task to tasklist
+  saveUser(): void {
+    // add new user
   }
 
   cancel(): void {

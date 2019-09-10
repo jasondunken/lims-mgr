@@ -4,7 +4,7 @@
       <ng-container matColumnDef="task">
         <th mat-header-cell *matHeaderCellDef>Task ID</th>
         <td mat-cell *matCellDef="let element">
-          <a routerLink="/tasks/detail/{{ element.taskNum }}">{{ element.taskNum }}</a>
+          <button mat-button (click)="gotoTaskDetail(element.taskNum)">{{ element.taskNum }}</button>
         </td>
       </ng-container>
 

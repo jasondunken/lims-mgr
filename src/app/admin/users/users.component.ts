@@ -11,6 +11,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  editingUser = false;
   columnNames = ['username', 'date-added', 'date-disabled'];
   userList: User[];
 
@@ -21,10 +22,14 @@ export class UsersComponent implements OnInit {
   }
 
   addUser(): void {
-    // add a new user
+    this.editingUser = true;
   }
 
   disableUser(): void {
     // disable a user
+  }
+
+  isEditing($event): void {
+    this.editingUser = $event;
   }
 }

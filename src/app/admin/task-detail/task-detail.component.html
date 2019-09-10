@@ -12,10 +12,11 @@
         <p>Workflow: {{ task.workflow }}</p>
         <p>Error: {{ task.error }}</p>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>button1</button>
-        <button mat-button>button2</button>
-      </mat-card-actions>
+      <div class="controls">
+        <button mat-button class="control" (click)="rerunTask()">Re-run</button>
+        <button mat-button class="control" (click)="cancelTask()">Cancel</button>
+        <button mat-button class="control" (click)="back()">Back</button>
+      </div>
     </mat-card>
   </ng-container>
 </div>
