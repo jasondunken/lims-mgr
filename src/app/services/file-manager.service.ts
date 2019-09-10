@@ -54,6 +54,18 @@ export class FileManagerService {
     }
   }
 
+  addTask(task: Task): void {
+    // submit this task to tasklist
+  }
+
+  removeTask(id: number): void {
+    // rend request to cancel task
+  }
+
+  rerunTask(id: number): void {
+    this.addTask(this.getTask(id));
+  }
+
   getUsers(): User[] {
     return this.users;
   }

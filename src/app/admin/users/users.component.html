@@ -20,4 +20,12 @@
       <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
     </table>
   </ng-container>
+  <ng-container>
+    <mat-card>
+      <div>
+        <button mat-button (click)="addUser()">Add User</button>
+        <button mat-button (click)="disableUser()">Disable User</button>
+      </div>
+    </mat-card>
+  </ng-container>
 </div>

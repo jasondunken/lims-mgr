@@ -1,3 +1,5 @@
-<app-header></app-header>
-<app-login *ngIf="!auth.isAuthenticated()"></app-login>
-<router-outlet *ngIf="auth.isAuthenticated()"></router-outlet>
+<ng-container class="main-panel">
+  <app-header></app-header>
+  <app-login *ngIf="!auth.isAuthenticated()"></app-login>
+  <router-outlet *ngIf="auth.isAuthenticated()"></router-outlet>
+</ng-container>
