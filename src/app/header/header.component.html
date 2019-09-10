@@ -2,9 +2,9 @@
   <mat-card>
     <h1>LIMS task manager</h1>
     <div>
-      <button mat-button (click)="gotoTasks()">Tasks</button>
-      <button mat-button (click)="gotoUsers()">Users</button>
-      <button mat-button (click)="gotoWorkflows()">Workflows</button>
+      <button mat-button class="control" (click)="gotoTasks()">Tasks</button>
+      <button mat-button class="control" (click)="gotoUsers()">Users</button>
+      <button mat-button class="control" (click)="gotoWorkflows()">Workflows</button>
 
       <span *ngIf="auth.isAuthenticated()"><button mat-button (click)="logout()">Logout</button></span>
     </div>
