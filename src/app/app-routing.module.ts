@@ -4,7 +4,7 @@ import { MainComponent } from './main/main.component';
 import { TasklistComponent } from './admin/tasklist/tasklist.component';
 import { UsersComponent } from './admin/users/users.component';
 import { WorkflowsComponent } from './workflows/workflows.component';
-import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { TaskDetailComponent } from './admin/task-detail/task-detail.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
