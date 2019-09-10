@@ -1,21 +1,31 @@
-table.mat-table,
-mat-card {
+.mat-card {
+  margin-top: 4em;
+  border-radius: 0px;
+}
+
+table.mat-table {
   width: 66%;
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid #ff00ff;
 }
 
 th.mat-header-cell,
 td.mat-cell {
   padding: 24px;
   width: 22%;
-
-  border: 1px solid #ff00ff;
 }
 
 .centered {
   width: 100%;
+}
 
-  border: 1px solid #ff00ff;
+.control {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+.controls {
+  text-align: center;
+  margin-top: 1.25em;
+  margin-bottom: 2em;
 }

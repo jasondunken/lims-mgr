@@ -19,4 +19,12 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.userList = this.auth.getUsers();
   }
+
+  addUser(): void {
+    // add a new user
+  }
+
+  disableUser(): void {
+    // disable a user
+  }
 }
