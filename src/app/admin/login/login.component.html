@@ -1,12 +1,16 @@
 <div class="centered">
   <mat-card class="login">
     <h1>Login</h1>
-    <mat-form-field>
-      <label>Username: <input matInput id="usr-name" #usr_name required/></label>
-    </mat-form-field>
-    <mat-form-field>
-      <label>Password: <input matInput id="password" type="password" #password required/></label>
-    </mat-form-field>
+
+    <div class="f-container">
+      <mat-form-field>
+        <label>Username:<input matInput id="usr-name" #usr_name/></label>
+      </mat-form-field>
+      <span class="spacer"></span>
+      <mat-form-field class="right-content-align">
+        <label>Password:<input matInput id="password" type="password" #password/></label>
+      </mat-form-field>
+    </div>
     <div><button mat-button (click)="login(usr_name, password)">Login</button></div>
   </mat-card>
 </div>

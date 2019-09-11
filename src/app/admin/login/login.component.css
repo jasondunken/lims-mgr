@@ -12,3 +12,15 @@
   margin-right: auto;
   margin-top: 4em;
 }
+
+.f-container {
+  display: flex;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-button {
+  border: 1px solid #303030;
+}
