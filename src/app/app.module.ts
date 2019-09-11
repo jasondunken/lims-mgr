@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MatToolbarModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
 import { MatTableModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
@@ -41,6 +41,7 @@ import { UserEditorComponent } from './admin/user-editor/user-editor.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatInputModule,
+    MatToolbarModule,
     MatPaginatorModule,
     MatTableModule,
     MatCardModule,

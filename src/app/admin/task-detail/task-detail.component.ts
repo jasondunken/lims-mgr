@@ -16,6 +16,7 @@ export class TaskDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private fileMgr: FileManagerService, private router: Router) {}
 
   ngOnInit() {
+    // the + is a TS macro for converting type of a string to a number
     const id = +this.route.snapshot.paramMap.get('id');
     this.task = this.fileMgr.getTask(id);
   }

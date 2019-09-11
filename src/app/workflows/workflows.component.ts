@@ -27,6 +27,10 @@ export class WorkflowsComponent implements OnInit {
     this.editingTask = true;
   }
 
+  editWorkflow(/* use id to populate task-editor component */): void {
+    this.editingTask = true;
+  }
+
   removeWorkflow(): void {
     // remove task from tasklist
   }
