@@ -1,8 +1,7 @@
 import { User } from './user.model';
 
 export interface Task {
-  taskNum: number;
-  user: User;
+  taskId: number;
   date: string;
   filePath: string;
   processor: string;

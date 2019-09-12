@@ -12,7 +12,35 @@ table.mat-table {
 th.mat-header-cell,
 td.mat-cell {
   padding: 24px;
+  white-space: unset;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.mat-column-name {
+  flex: 0 0 15%;
+  width: 15%;
+}
+
+.mat-column-processor {
+  flex: 0 0 25%;
   width: 25%;
+}
+
+.mat-column-input-path {
+  flex: 0 0 25%;
+  width: 25%;
+}
+
+.mat-column-output-path {
+  flex: 0 0 25%;
+  width: 25%;
+}
+
+.mat-column-frequency {
+  flex: 0 0 10%;
+  width: 10%;
+  text-align: center;
 }
 
 .centered {

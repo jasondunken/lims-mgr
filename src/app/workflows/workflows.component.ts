@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { FileManagerService } from '../services/file-manager.service';
 
-import { Task } from '../models/task.model';
+import { Workflow } from '../models/workflow.model';
 
 @Component({
   selector: 'app-workflows',
@@ -13,22 +13,22 @@ import { Task } from '../models/task.model';
   styleUrls: ['./workflows.component.css']
 })
 export class WorkflowsComponent implements OnInit {
-  editingTask = false;
-  columnNames = ['workflow', 'name', 'processor', 'file-location'];
-  taskList: Task[];
+  editingWorkflow = false;
+  columnNames = ['name', 'processor', 'input-path', 'output-path', 'frequency'];
+  workflows: Workflow[];
 
   constructor(private fileMgr: FileManagerService) {}
 
   ngOnInit() {
-    this.taskList = this.fileMgr.getTasks();
+    this.workflows = this.fileMgr.getWorkflows();
   }
 
   addWorkflow(): void {
-    this.editingTask = true;
+    this.editingWorkflow = true;
   }
 
   editWorkflow(/* use id to populate task-editor component */): void {
-    this.editingTask = true;
+    this.editingWorkflow = true;
   }
 
   removeWorkflow(): void {
@@ -36,6 +36,6 @@ export class WorkflowsComponent implements OnInit {
   }
 
   isEditing($event): void {
-    this.editingTask = $event;
+    this.editingWorkflow = $event;
   }
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FileManagerService } from 'src/app/services/file-manager.service';
+
+import { Task } from '../../models/task.model';
 import { Processor } from '../../models/processor.model';
 
 @Component({
@@ -9,7 +11,9 @@ import { Processor } from '../../models/processor.model';
 })
 export class TaskEditorComponent implements OnInit {
   processors: Processor[];
+
   @Output() editing = new EventEmitter<boolean>();
+
   constructor(private fileMgr: FileManagerService) {}
 
   ngOnInit() {
@@ -17,7 +21,7 @@ export class TaskEditorComponent implements OnInit {
   }
 
   saveTask(): void {
-    // add new task to tasklist
+    // this.fileMgr.addTask();
   }
 
   cancel(): void {
