@@ -2,21 +2,26 @@
   border-radius: 0px;
 }
 
-table.mat-table {
-  width: 88%;
+.centered {
+  width: 100%;
+}
+
+.workflow-detail {
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
   margin-top: 4em;
 }
 
-th.mat-header-cell,
-td.mat-cell {
-  padding: 24px;
-  width: 22%;
+.control {
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
-.centered {
-  width: 100%;
+.controls {
+  text-align: center;
+  margin-top: 1.25em;
+  margin-bottom: 2em;
 }
 
 .mat-button {
