@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MatPaginator } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { FileManagerService } from '../services/file-manager.service';
+import { FileManagerService } from '../../services/file-manager.service';
 
-import { Workflow } from '../models/workflow.model';
+import { Workflow } from '../../models/workflow.model';
 
 @Component({
   selector: 'app-workflows',
@@ -17,7 +18,7 @@ export class WorkflowsComponent implements OnInit {
   columnNames = ['name', 'processor', 'input-path', 'output-path', 'frequency'];
   workflows: Workflow[];
 
-  constructor(private fileMgr: FileManagerService) {}
+  constructor(private fileMgr: FileManagerService, private router: Router) {}
 
   ngOnInit() {
     this.workflows = this.fileMgr.getWorkflows();
@@ -37,5 +38,9 @@ export class WorkflowsComponent implements OnInit {
 
   isEditing($event): void {
     this.editingWorkflow = $event;
+  }
+
+  gotoWorkflowDetail(id: number) {
+    this.router.navigateByUrl('/workflows/detail/' + id);
   }
 }

@@ -1,0 +1,19 @@
+<div class="centered">
+  <ng-container matCard *ngIf="workflow">
+    <mat-card class="workflow-detail">
+      <mat-card-header>
+        <mat-card-title>Workflow ID {{ workflow.id }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Name: {{ workflow.name }}</p>
+        <p>Processor: {{ workflow.processor }}</p>
+        <p>Input Path: {{ workflow.inputPath }}</p>
+        <p>Output Path: {{ workflow.outputPath }}</p>
+        <p>Frequency: {{ workflow.frequency }}</p>
+      </mat-card-content>
+      <div class="controls">
+        <button mat-button class="control" (click)="back()">Back</button>
+      </div>
+    </mat-card>
+  </ng-container>
+</div>

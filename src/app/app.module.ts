@@ -17,10 +17,11 @@ import { MainComponent } from './main/main.component';
 import { TasklistComponent } from './admin/tasklist/tasklist.component';
 import { UsersComponent } from './admin/users/users.component';
 import { HeaderComponent } from './header/header.component';
-import { WorkflowsComponent } from './workflows/workflows.component';
+import { WorkflowsComponent } from './admin/workflows/workflows.component';
 import { TaskDetailComponent } from './admin/task-detail/task-detail.component';
 import { TaskEditorComponent } from './admin/task-editor/task-editor.component';
 import { UserEditorComponent } from './admin/user-editor/user-editor.component';
+import { WorkflowDetailComponent } from './admin/workflow-detail/workflow-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { UserEditorComponent } from './admin/user-editor/user-editor.component';
     WorkflowsComponent,
     TaskDetailComponent,
     TaskEditorComponent,
-    UserEditorComponent
+    UserEditorComponent,
+    WorkflowDetailComponent
   ],
   imports: [
     BrowserModule,
