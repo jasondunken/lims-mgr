@@ -12,8 +12,8 @@
       <mat-form-field>
         <mat-label> Processor</mat-label>
         <mat-select>
-          <mat-option *ngFor="let processor of processors" [value]="processor">
-            {{ processor }}
+          <mat-option *ngFor="let processor of processors" [value]="processor.name">
+            {{ processor.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>

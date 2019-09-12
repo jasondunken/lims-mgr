@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { User } from '../models/user.model';
 import { Task } from '../models/task.model';
+import { Processor } from '../models/processor.model';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +79,6 @@ export class FileManagerService {
 
   getTask(id: number): Task {
     for (const task of this.getTasks()) {
-      console.log('taskNum: ' + task.taskNum);
       if (task.taskNum === id) {
         return task;
       }
@@ -87,17 +87,24 @@ export class FileManagerService {
   }
 
   addTask(task: Task): void {
-    // open task-editor component
+    // add task to tasklist
   }
 
-  editTask(id: number): void {}
+  editTask(id: number): void {
+    // edit existing task and update tasklist
+  }
 
   // called by cancel on task-detail or remove from workflows
   removeTask(id: number): void {
-    // rend request to cancel task
+    // rend request to remove task from tasklist
   }
 
   rerunTask(id: number): void {
+    // should this populate the add task component to make changes or just directly add the task to the tasklist?
     this.addTask(this.getTask(id));
+  }
+
+  getProcessors(): Processor[] {
+    return [{ name: 'hack_spectrometer_12849' }, { name: 'Waters_hpic_10626' }, { name: 'Thermo_Scientific_GC_21037' }];
   }
 }

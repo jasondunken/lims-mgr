@@ -35,6 +35,14 @@ export class AuthService {
     return this.users;
   }
 
+  addUser(): void {
+    // add a new user to the userlist
+  }
+
+  disableUser(id: number): void {
+    // disable an existing user and update userlist
+  }
+
   isAuthenticated(): boolean {
     return this.authenticated;
   }

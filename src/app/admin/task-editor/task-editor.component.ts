@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FileManagerService } from 'src/app/services/file-manager.service';
+import { Processor } from '../../models/processor.model';
 
 @Component({
   selector: 'app-task-editor',
@@ -6,11 +8,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./task-editor.component.css']
 })
 export class TaskEditorComponent implements OnInit {
-  processors = ['hack_spectrometer_12849', 'Waters_hpic_10626', 'Thermo_Scientific_GC_21037'];
+  processors: Processor[];
   @Output() editing = new EventEmitter<boolean>();
-  constructor() {}
+  constructor(private fileMgr: FileManagerService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.processors = this.fileMgr.getProcessors();
+  }
 
   saveTask(): void {
     // add new task to tasklist
