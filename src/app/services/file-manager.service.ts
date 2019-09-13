@@ -124,8 +124,8 @@ export class FileManagerService {
     // remove task from tasklist
   }
 
-  // api call to add task to tasklist
-  rerunTask(id: number): void {
+  // api call - adds a previous task to the queue
+  rescheduleTask(id: number): void {
     // should this populate the add task component to make changes or just directly add the task to the tasklist?
   }
 

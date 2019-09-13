@@ -10,6 +10,7 @@ import { Processor } from '../../models/processor.model';
   styleUrls: ['./task-editor.component.css']
 })
 export class TaskEditorComponent implements OnInit {
+  task: Task;
   processors: Processor[];
 
   @Output() editing = new EventEmitter<boolean>();

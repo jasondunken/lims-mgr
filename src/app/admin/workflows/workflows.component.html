@@ -1,5 +1,8 @@
 <div class="centered">
   <mat-card>
+    <mat-card-header>
+      <h2>Workflows</h2>
+    </mat-card-header>
     <ng-container *ngIf="workflows && workflows.length > 0">
       <table mat-table [dataSource]="workflows">
         <ng-container matColumnDef="name">

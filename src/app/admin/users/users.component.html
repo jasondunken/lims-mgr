@@ -1,5 +1,8 @@
 <div class="centered">
   <mat-card>
+    <mat-card-header>
+      <h2>Users</h2>
+    </mat-card-header>
     <ng-container *ngIf="userList && userList.length > 0">
       <table mat-table [dataSource]="userList">
         <ng-container matColumnDef="username">
