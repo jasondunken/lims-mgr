@@ -1,8 +1,8 @@
 <div class="centered">
   <mat-card class="task-detail">
     <mat-card-header>
-      <mat-card-title *ngIf="task">Edit Task</mat-card-title>
-      <mat-card-title *ngIf="!task">Add Task</mat-card-title>
+      <mat-card-title *ngIf="workflow">Edit Workflow</mat-card-title>
+      <mat-card-title *ngIf="!workflow">Add Workflow</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
@@ -10,7 +10,7 @@
         <input matInput type="text" name="name" />
       </mat-form-field>
       <mat-form-field>
-        <mat-label> Processor</mat-label>
+        <mat-label>Processor</mat-label>
         <mat-select>
           <mat-option *ngFor="let processor of processors" [value]="processor.name">
             {{ processor.name }}

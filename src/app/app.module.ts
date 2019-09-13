@@ -19,7 +19,7 @@ import { UsersComponent } from './admin/users/users.component';
 import { HeaderComponent } from './header/header.component';
 import { WorkflowsComponent } from './admin/workflows/workflows.component';
 import { TaskDetailComponent } from './admin/task-detail/task-detail.component';
-import { TaskEditorComponent } from './admin/task-editor/task-editor.component';
+import { WorkflowEditorComponent } from './admin/workflow-editor/workflow-editor.component';
 import { UserEditorComponent } from './admin/user-editor/user-editor.component';
 import { WorkflowDetailComponent } from './admin/workflow-detail/workflow-detail.component';
 
@@ -34,7 +34,7 @@ import { WorkflowDetailComponent } from './admin/workflow-detail/workflow-detail
     HeaderComponent,
     WorkflowsComponent,
     TaskDetailComponent,
-    TaskEditorComponent,
+    WorkflowEditorComponent,
     UserEditorComponent,
     WorkflowDetailComponent
   ],
