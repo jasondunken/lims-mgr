@@ -31,27 +31,42 @@ export class AuthService {
 
   constructor() {}
 
+  // api call
   getUsers(): User[] {
     return this.users;
   }
 
+  getUserByName(username: string): User {
+    for (const user of this.getUsers()) {
+      if (user.username === username) {
+        return user;
+      }
+    }
+  }
+
+  // api call
   addUser(): void {
     // add a new user to the userlist
   }
 
-  disableUser(id: number): void {
+  // api call
+  disableUser(username: string): void {
     // disable an existing user and update userlist
+    const user = this.getUserByName(username);
+    user.dateDisabled = Date.now().toString();
   }
 
   isAuthenticated(): boolean {
     return this.authenticated;
   }
 
+  // api call
   authenticateUser(usrName: string, password: string) {
     // for test purposes
     this.authenticated = true; // if authenticated by authentication server
   }
 
+  // api call
   logout(): void {
     this.authenticated = false;
   }

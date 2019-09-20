@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { FileManagerService } from '../../services/file-manager.service';
 import { Task } from '../../models/task.model';
@@ -13,7 +13,7 @@ import { Task } from '../../models/task.model';
 })
 export class TaskDetailComponent implements OnInit {
   task: Task;
-  constructor(private route: ActivatedRoute, private fileMgr: FileManagerService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private fileMgr: FileManagerService, private location: Location) {}
 
   ngOnInit() {
     // the + is a TS macro for converting type of a string to a number
@@ -30,6 +30,6 @@ export class TaskDetailComponent implements OnInit {
   }
 
   back(): void {
-    this.router.navigateByUrl('/tasks');
+    this.location.back();
   }
 }

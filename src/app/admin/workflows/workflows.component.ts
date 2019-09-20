@@ -14,7 +14,6 @@ import { Workflow } from '../../models/workflow.model';
   styleUrls: ['./workflows.component.css']
 })
 export class WorkflowsComponent implements OnInit {
-  editingWorkflow = false;
   columnNames = ['name', 'processor', 'input-path', 'output-path', 'frequency'];
   workflows: Workflow[];
 
@@ -24,21 +23,7 @@ export class WorkflowsComponent implements OnInit {
     this.workflows = this.fileMgr.getWorkflows();
   }
 
-  addWorkflow(): void {
-    this.editingWorkflow = true;
-  }
-
-  editWorkflow(/* use id to populate task-editor component */): void {
-    this.editingWorkflow = true;
-  }
-
-  removeWorkflow(): void {
-    // remove task from tasklist
-  }
-
-  isEditing($event): void {
-    this.editingWorkflow = $event;
-  }
+  addWorkflow(): void {}
 
   gotoWorkflowDetail(id: number) {
     this.router.navigateByUrl('/workflows/detail/' + id);

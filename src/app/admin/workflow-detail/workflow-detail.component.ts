@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
+import { ActivatedRoute } from '@angular/router';
 
 import { FileManagerService } from '../../services/file-manager.service';
 import { Workflow } from '../../models/workflow.model';
@@ -12,14 +14,30 @@ import { Workflow } from '../../models/workflow.model';
 })
 export class WorkflowDetailComponent implements OnInit {
   workflow: Workflow;
-  constructor(private fileMgr: FileManagerService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private fileMgr: FileManagerService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.workflow = this.fileMgr.getWorkflow(id);
+    if (id) {
+      this.workflow = this.fileMgr.getWorkflow(id);
+    }
+    const name = this.route.snapshot.paramMap.get('name');
+    if (name) {
+      this.workflow = this.fileMgr.getWorkflowByName(name);
+    }
+  }
+
+  // api call
+  editWorkflow(): void {
+    // open edit component
+  }
+
+  // api call
+  deleteWorkflow(): void {
+    // remove workflow from workflow list
   }
 
   back(): void {
-    this.router.navigateByUrl('/workflows');
+    this.location.back();
   }
 }

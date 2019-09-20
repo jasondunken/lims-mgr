@@ -143,6 +143,15 @@ export class FileManagerService {
     return null;
   }
 
+  getWorkflowByName(name: string): Workflow {
+    for (const wf of this.getWorkflows()) {
+      if (wf.name === name) {
+        return wf;
+      }
+    }
+    return null;
+  }
+
   // api call
   addWorkflow(workflow: Workflow): void {
     // add workflow to workflows

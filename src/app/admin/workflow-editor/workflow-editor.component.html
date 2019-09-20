@@ -18,12 +18,20 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
-        <mat-label>File Path</mat-label>
-        <input matInput type="text" name="filePath" />
+        <mat-label>Input File Path</mat-label>
+        <input matInput type="text" name="iFilePath" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Output File Path</mat-label>
+        <input matInput type="text" name="oFilePath" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Frequency</mat-label>
+        <input matInput type="text" name="frequency" />
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions class="controls">
-      <button mat-button class="control" (click)="saveTask()">Save</button>
+      <button mat-button class="control" (click)="saveWorkflow()">Save</button>
       <button mat-button class="control" (click)="cancel()">Cancel</button>
     </mat-card-actions>
   </mat-card>

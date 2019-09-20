@@ -38,13 +38,7 @@
 
       <div class="controls">
         <button mat-button class="control" (click)="addWorkflow()">Add</button>
-        <button mat-button class="control" (click)="removeWorkflow()">Remove</button>
-        <button mat-button class="control" (click)="editWorkflow()">Edit</button>
       </div>
     </ng-container>
   </mat-card>
-
-  <ng-container *ngIf="editingWorkflow">
-    <app-workflow-editor (editing)="isEditing($event)"></app-workflow-editor>
-  </ng-container>
 </div>

@@ -12,6 +12,8 @@
         <p>Frequency: {{ workflow.frequency }}</p>
       </mat-card-content>
       <div class="controls">
+        <button mat-button class="control" (click)="editWorkflow()">Edit Workflow</button>
+        <button mat-button class="control" (click)="deleteWorkflow()">Delete Workflow</button>
         <button mat-button class="control" (click)="back()">Back</button>
       </div>
     </mat-card>

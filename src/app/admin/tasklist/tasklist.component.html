@@ -15,7 +15,9 @@
 
           <ng-container matColumnDef="workflow">
             <th mat-header-cell *matHeaderCellDef>Workflow</th>
-            <td mat-cell *matCellDef="let element">{{ element.workflow }}</td>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button (click)="gotoWorkflowDetail(element.workflow)">{{ element.workflow }}</button>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="status">

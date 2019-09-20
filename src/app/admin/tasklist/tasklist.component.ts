@@ -23,4 +23,8 @@ export class TasklistComponent implements OnInit {
   gotoTaskDetail(id: number) {
     this.router.navigateByUrl('/tasks/detail/' + id);
   }
+
+  gotoWorkflowDetail(name: string) {
+    this.router.navigateByUrl('/workflows/detail-by-name/' + name);
+  }
 }

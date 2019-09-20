@@ -25,8 +25,8 @@ export class UsersComponent implements OnInit {
     this.editingUser = true;
   }
 
-  disableUser(): void {
-    // disable a user
+  disableUser(username: string): void {
+    this.auth.disableUser(username);
   }
 
   isEditing($event): void {

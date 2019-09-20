@@ -25,7 +25,7 @@ export class WorkflowEditorComponent implements OnInit {
     this.processors = this.fileMgr.getProcessors();
   }
 
-  saveTask(): void {
+  saveWorkflow(): void {
     // this.fileMgr.addWorkflow();
   }
 

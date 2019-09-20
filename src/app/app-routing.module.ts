@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'tasks/detail/:id', component: TaskDetailComponent },
   { path: 'users', component: UsersComponent },
   { path: 'workflows', component: WorkflowsComponent },
-  { path: 'workflows/detail/:id', component: WorkflowDetailComponent }
+  { path: 'workflows/detail/:id', component: WorkflowDetailComponent },
+  { path: 'workflows/detail-by-name/:name', component: WorkflowDetailComponent }
 ];
 
 @NgModule({
