@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MatInputModule, MatToolbarModule, MatSelectModule } from '@angular/material';
-import { MatPaginatorModule } from '@angular/material';
-import { MatTableModule } from '@angular/material';
-import { MatCardModule } from '@angular/material';
-import { MatButtonModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 import { LoginComponent } from './admin/login/login.component';
 import { AdminComponent } from './admin/admin/admin.component';
