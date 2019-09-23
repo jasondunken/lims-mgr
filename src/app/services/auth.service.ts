@@ -1,6 +1,17 @@
 import { Injectable } from '@angular/core';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+
 import { User } from '../models/user.model';
+
+const LIMS_API_URL = 'localhost:4000';
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -29,11 +40,14 @@ export class AuthService {
   users: User[] = [this.testUser1, this.testUser2, this.testUser3, this.testUser4];
   private authenticated = false;
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   // api call
-  getUsers(): User[] {
-    return this.users;
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(LIMS_API_URL + '/Users').pipe(
+      tap(_ => this.log('fetched records')),
+      catchError(this.handleError<Record[]>('getUsers', []))
+    );
   }
 
   getUserByName(username: string): User {
