@@ -45,13 +45,16 @@ export class AuthService {
   // api call
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(LIMS_API_URL + '/Users').pipe(
-      tap(_ => this.log('fetched records')),
-      catchError(this.handleError<Record[]>('getUsers', []))
+      tap(users => {
+        this.users = users;
+        console.log(users);
+        return users as User[];
+      })
     );
   }
 
   getUserByName(username: string): User {
-    for (const user of this.getUsers()) {
+    for (const user of this.users) {
       if (user.username === username) {
         return user;
       }

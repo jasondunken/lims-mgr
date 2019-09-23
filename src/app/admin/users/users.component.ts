@@ -18,7 +18,9 @@ export class UsersComponent implements OnInit {
   constructor(private fileMgr: FileManagerService, private auth: AuthService) {}
 
   ngOnInit() {
-    this.userList = this.auth.getUsers();
+    this.auth.getUsers().subscribe(users => {
+      this.userList = users;
+    });
   }
 
   addUser(): void {
