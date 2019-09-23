@@ -19,7 +19,7 @@ export class UsersComponent implements OnInit {
 
   ngOnInit() {
     this.auth.getUsers().subscribe(users => {
-      this.userList = users;
+      this.userList = [...users];
     });
   }
 

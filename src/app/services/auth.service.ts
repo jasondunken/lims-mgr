@@ -6,7 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 
-const LIMS_API_URL = 'localhost:4000';
+const LIMS_API_URL = 'localhost:4000/api';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -39,6 +39,7 @@ export class AuthService {
   };
   users: User[] = [this.testUser1, this.testUser2, this.testUser3, this.testUser4];
   private authenticated = false;
+  private authToken = '';
 
   constructor(private http: HttpClient) {}
 
@@ -46,9 +47,11 @@ export class AuthService {
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(LIMS_API_URL + '/Users').pipe(
       tap(users => {
-        this.users = users;
-        console.log(users);
-        return users as User[];
+        if (users) {
+          this.users = [...users];
+        }
+        console.log(this.users);
+        return this.users;
       })
     );
   }
@@ -75,6 +78,10 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return this.authenticated;
+  }
+
+  getAuthToken(): string {
+    return this.authToken;
   }
 
   // api call

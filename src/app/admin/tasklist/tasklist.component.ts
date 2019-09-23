@@ -17,7 +17,9 @@ export class TasklistComponent implements OnInit {
   constructor(private fileMgr: FileManagerService, private router: Router) {}
 
   ngOnInit() {
-    this.taskList = this.fileMgr.getTasks();
+    this.fileMgr.getTasks().subscribe(tasks => {
+      this.taskList = [...tasks];
+    });
   }
 
   gotoTaskDetail(id: number) {

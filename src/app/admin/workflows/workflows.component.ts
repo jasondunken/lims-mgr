@@ -20,7 +20,9 @@ export class WorkflowsComponent implements OnInit {
   constructor(private fileMgr: FileManagerService, private router: Router) {}
 
   ngOnInit() {
-    this.workflows = this.fileMgr.getWorkflows();
+    this.fileMgr.getWorkflows().subscribe(workflows => {
+      this.workflows = [...workflows];
+    });
   }
 
   addWorkflow(): void {}

@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 import { Task } from '../models/task.model';
-import { Processor } from '../models/processor.model';
 import { Workflow } from '../models/workflow.model';
+import { Processor } from '../models/processor.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileManagerService {
+  // CORS isn't happy if you leave off the http://
+  apiUrl = 'http://localhost:4000/api';
+  private taskList: Task[];
   testUser1: User = {
     username: 'kwolfe',
     dateAdded: '1/1/2019',
@@ -103,15 +110,23 @@ export class FileManagerService {
     }
   ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   // api call
-  getTasks(): Task[] {
-    return this.testTasks;
+  getTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.apiUrl + '/Tasks').pipe(
+      tap(tasks => {
+        console.log('getTasks()...');
+        if (tasks) {
+          this.taskList = [...tasks];
+          console.log('tasks: ' + tasks);
+        }
+      })
+    );
   }
 
   getTask(id: number): Task {
-    for (const task of this.getTasks()) {
+    for (const task of this.taskList) {
       if (task.taskId === id) {
         return task;
       }
@@ -130,12 +145,18 @@ export class FileManagerService {
   }
 
   // api call
-  getWorkflows(): Workflow[] {
-    return this.workflows;
+  getWorkflows(): Observable<Workflow[]> {
+    return this.http.get<Workflow[]>(this.apiUrl + '/Workflows').pipe(
+      tap(workflows => {
+        if (workflows) {
+          this.workflows = [...workflows];
+        }
+      })
+    );
   }
 
   getWorkflow(id: number): Workflow {
-    for (const wf of this.getWorkflows()) {
+    for (const wf of this.workflows) {
       if (wf.id === id) {
         return wf;
       }
@@ -144,7 +165,7 @@ export class FileManagerService {
   }
 
   getWorkflowByName(name: string): Workflow {
-    for (const wf of this.getWorkflows()) {
+    for (const wf of this.workflows) {
       if (wf.name === name) {
         return wf;
       }
