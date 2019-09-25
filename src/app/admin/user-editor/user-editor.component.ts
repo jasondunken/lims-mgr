@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-user-editor',
   templateUrl: './user-editor.component.html',
@@ -7,12 +9,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class UserEditorComponent implements OnInit {
   @Output() editing = new EventEmitter<boolean>();
-  constructor() {}
+
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {}
 
   saveUser(): void {
-    // add new user
+    // update user
   }
 
   cancel(): void {

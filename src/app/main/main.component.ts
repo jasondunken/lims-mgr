@@ -12,4 +12,8 @@ export class MainComponent implements OnInit {
   constructor(private auth: AuthService, private fMgr: FileManagerService) {}
 
   ngOnInit() {}
+
+  isAuthenticated(): boolean {
+    return this.auth.isAuthenticated();
+  }
 }

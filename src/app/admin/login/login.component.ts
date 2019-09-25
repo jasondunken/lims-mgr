@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.states';
+import { tap } from 'rxjs/operators';
+
 import { AuthService } from '../../services/auth.service';
+
+import { User } from '../../models/user.model';
+import { UsersComponent } from '../users/users.component';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +23,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  login(usrName: HTMLInputElement, password: HTMLInputElement): void {
-    this.auth.authenticateUser(usrName.value, password.value);
-    this.router.navigate(['tasks']);
+  login(username: HTMLInputElement, password: HTMLInputElement): void {
+    this.auth
+      .login(username.value, password.value)
+      .pipe(
+        tap(user => {
+          this.router.navigateByUrl('/tasks');
+        })
+      )
+      .subscribe();
+  }
+
+  register(): void {
+    this.auth
+      .registerNewUser('snuffy', 'smith', 'ssmith', 'password')
+      .subscribe(res => console.log('HTTP response: ', res), () => console.log('HTTP request completed'));
   }
 }

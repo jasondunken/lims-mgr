@@ -14,24 +14,32 @@ import { Processor } from '../models/processor.model';
 })
 export class FileManagerService {
   // CORS isn't happy if you leave off the http://
-  apiUrl = 'http://localhost:4000/api';
+  apiUrl = 'http://localhost:59070/api';
   private taskList: Task[];
   testUser1: User = {
+    fName: null,
+    lName: null,
     username: 'kwolfe',
     dateAdded: '1/1/2019',
     dateDisabled: null
   };
   testUser2: User = {
+    fName: null,
+    lName: null,
     username: 'brittany stuart',
     dateAdded: '2/2/2018',
     dateDisabled: null
   };
   testUser3: User = {
+    fName: null,
+    lName: null,
     username: 'j dog',
     dateAdded: '3/1/1970',
     dateDisabled: null
   };
   testUser4: User = {
+    fName: null,
+    lName: null,
     username: 'dr parmar',
     dateAdded: '12/12/2099',
     dateDisabled: null
@@ -116,10 +124,8 @@ export class FileManagerService {
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl + '/Tasks').pipe(
       tap(tasks => {
-        console.log('getTasks()...');
         if (tasks) {
           this.taskList = [...tasks];
-          console.log('tasks: ' + tasks);
         }
       })
     );
@@ -174,7 +180,7 @@ export class FileManagerService {
   }
 
   // api call
-  addWorkflow(workflow: Workflow): void {
+  addWorkflow(workflow: any): void {
     // add workflow to workflows
   }
 

@@ -1,43 +1,55 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
 
-const LIMS_API_URL = 'localhost:4000/api';
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
+// DEV PORT: 59070
+const apiUrl = ' http://localhost:59070/api';
+const usersUrl = ' http://localhost:59070/users';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'text/plain'
+    })
+  };
   testUser1: User = {
+    fName: null,
+    lName: null,
     username: 'kwolfe',
     dateAdded: '1/1/2019',
     dateDisabled: null
   };
   testUser2: User = {
+    fName: null,
+    lName: null,
     username: 'brittany stuart',
     dateAdded: '2/2/2018',
     dateDisabled: null
   };
   testUser3: User = {
+    fName: null,
+    lName: null,
     username: 'j dog',
     dateAdded: '3/1/1970',
     dateDisabled: null
   };
   testUser4: User = {
+    fName: null,
+    lName: null,
     username: 'dr parmar',
     dateAdded: '12/12/2099',
     dateDisabled: null
   };
   users: User[] = [this.testUser1, this.testUser2, this.testUser3, this.testUser4];
+
   private authenticated = false;
   private authToken = '';
 
@@ -45,7 +57,7 @@ export class AuthService {
 
   // api call
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(LIMS_API_URL + '/Users').pipe(
+    return this.http.get<User[]>(apiUrl + '/Users').pipe(
       tap(users => {
         if (users) {
           this.users = [...users];
@@ -64,9 +76,53 @@ export class AuthService {
     }
   }
 
+  // /user/register
+  registerNewUser(fName: string, lName: string, username: string, password: string): Observable<User> {
+    const newUser = {
+      FirstName: fName,
+      LastName: lName,
+      Username: username,
+      Password: password
+    };
+    console.log(newUser);
+    console.log(this.httpOptions);
+    const request = JSON.stringify(newUser);
+    return this.http.post<any>(usersUrl + '/register', request, this.httpOptions).pipe(
+      tap((response: any) => {
+        console.log('response from /register: ' + response);
+      }),
+      catchError(err => {
+        console.log('HTTP error: ', err);
+        return throwError(err);
+      })
+    );
+  }
+
+  // /user/authenticate
+  login(username: string, password: string): Observable<any> {
+    const login = {
+      Username: 'ssmith',
+      Password: 'password'
+    };
+    const request = JSON.stringify(login);
+    return this.http.post<any>(usersUrl + '/authenticate', request, this.httpOptions).pipe(
+      tap((response: any) => {
+        this.authToken = response.token;
+        if (this.authToken !== null && this.authToken !== 'null' && this.authToken !== undefined && this.authToken !== '') {
+          this.authenticated = true;
+        }
+      }),
+      catchError(err => {
+        console.log('HTTP error: ', err);
+        return throwError(err);
+      })
+    );
+  }
+
   // api call
-  addUser(): void {
-    // add a new user to the userlist
+  logout(): void {
+    this.authenticated = false;
+    this.authToken = '';
   }
 
   // api call
@@ -82,16 +138,5 @@ export class AuthService {
 
   getAuthToken(): string {
     return this.authToken;
-  }
-
-  // api call
-  authenticateUser(usrName: string, password: string) {
-    // for test purposes
-    this.authenticated = true; // if authenticated by authentication server
-  }
-
-  // api call
-  logout(): void {
-    this.authenticated = false;
   }
 }

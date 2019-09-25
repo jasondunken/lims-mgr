@@ -17,6 +17,8 @@ export class WorkflowsComponent implements OnInit {
   columnNames = ['name', 'processor', 'input-path', 'output-path', 'frequency'];
   workflows: Workflow[];
 
+  editingWorkflow = false;
+
   constructor(private fileMgr: FileManagerService, private router: Router) {}
 
   ngOnInit() {
@@ -25,9 +27,15 @@ export class WorkflowsComponent implements OnInit {
     });
   }
 
-  addWorkflow(): void {}
-
   gotoWorkflowDetail(id: number) {
     this.router.navigateByUrl('/workflows/detail/' + id);
+  }
+
+  addWorkflow(): void {
+    this.editingWorkflow = true;
+  }
+
+  isEditing($event): void {
+    this.editingWorkflow = $event;
   }
 }
