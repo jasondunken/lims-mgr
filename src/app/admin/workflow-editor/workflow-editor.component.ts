@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Processor } from '../../models/processor.model';
 import { Workflow } from 'src/app/models/workflow.model';
-import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-workflow-editor',

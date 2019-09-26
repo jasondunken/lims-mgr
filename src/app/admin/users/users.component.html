@@ -29,9 +29,6 @@
         <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
       </table>
     </ng-container>
-    <div class="controls">
-      <button mat-button class="control" (click)="addUser()">Add User</button>
-    </div>
   </mat-card>
   <ng-container *ngIf="editingUser">
     <app-user-editor (editing)="isEditing($event)"></app-user-editor>

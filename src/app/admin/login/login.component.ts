@@ -16,6 +16,8 @@ import { UsersComponent } from '../users/users.component';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  registeringUser = false;
+
   usrName: string;
   password: string;
 
@@ -35,8 +37,10 @@ export class LoginComponent implements OnInit {
   }
 
   register(): void {
-    this.auth
-      .registerNewUser('snuffy', 'smith', 'ssmith', 'password')
-      .subscribe(res => console.log('HTTP response: ', res), () => console.log('HTTP request completed'));
+    this.registeringUser = true;
+  }
+
+  isRegistering($event): void {
+    this.registeringUser = $event;
   }
 }

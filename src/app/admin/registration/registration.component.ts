@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -8,11 +8,21 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
+  @Output() registeringUser = new EventEmitter<boolean>();
+
   constructor(private auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('registrating module onInit()');
+  }
 
-  register(fName: string, lName: string, username: string, password: string) {
-    this.auth.registerNewUser(fName, lName, username, password);
+  registerUser(fName: HTMLInputElement, lName: HTMLInputElement, username: HTMLInputElement, password: HTMLInputElement) {
+    this.auth.registerNewUser(fName.value, lName.value, username.value, password.value).subscribe(() => {
+      this.registeringUser.emit(false);
+    });
+  }
+
+  cancel(): void {
+    this.registeringUser.emit(false);
   }
 }

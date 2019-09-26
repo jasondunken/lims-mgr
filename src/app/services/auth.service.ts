@@ -7,7 +7,6 @@ import { catchError, tap } from 'rxjs/operators';
 import { User } from '../models/user.model';
 
 // DEV PORT: 59070
-const apiUrl = ' http://localhost:59070/api';
 const usersUrl = ' http://localhost:59070/users';
 
 @Injectable({
@@ -17,7 +16,6 @@ export class AuthService {
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
-      // 'Content-Type': 'text/plain'
     })
   };
   testUser1: User = {
@@ -57,7 +55,12 @@ export class AuthService {
 
   // api call
   getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(apiUrl + '/Users').pipe(
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.authToken
+      })
+    };
+    return this.http.get<User[]>(usersUrl, options).pipe(
       tap(users => {
         if (users) {
           this.users = [...users];
@@ -76,7 +79,7 @@ export class AuthService {
     }
   }
 
-  // /user/register
+  // /users/register
   registerNewUser(fName: string, lName: string, username: string, password: string): Observable<User> {
     const newUser = {
       FirstName: fName,
@@ -98,11 +101,11 @@ export class AuthService {
     );
   }
 
-  // /user/authenticate
+  // /users/authenticate
   login(username: string, password: string): Observable<any> {
     const login = {
-      Username: 'ssmith',
-      Password: 'password'
+      Username: username,
+      Password: password
     };
     const request = JSON.stringify(login);
     return this.http.post<any>(usersUrl + '/authenticate', request, this.httpOptions).pipe(

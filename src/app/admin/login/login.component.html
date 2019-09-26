@@ -1,12 +1,12 @@
 <div class="centered">
-  <mat-card class="login">
+  <mat-card class="login" *ngIf="!registeringUser">
     <h2>Login</h2>
 
     <div class="centered">
       <span class="mat-centered">
         <mat-form-field>
           <mat-label>Username:</mat-label>
-          <input matInput id="usr-name" #usr_name />
+          <input matInput id="usr-name" #username />
         </mat-form-field>
       </span>
     </div>
@@ -21,8 +21,12 @@
     </div>
 
     <div class="controls">
-      <button mat-button class="control" (click)="login(usr_name, password)">Login</button>
+      <button mat-button class="control" (click)="login(username, password)">Login</button>
       <button mat-button class="control" (click)="register()">Register</button>
     </div>
   </mat-card>
+
+  <ng-container *ngIf="registeringUser">
+    <app-registration (registeringUser)="isRegistering($event)"></app-registration>
+  </ng-container>
 </div>
