@@ -40,8 +40,9 @@ export class WorkflowEditorComponent implements OnInit {
       frequency: hz.value
     };
     console.log('newWorkflow: ' + JSON.stringify(newWorkflow));
-    this.fileMgr.addWorkflow(newWorkflow);
-    this.editing.emit(false);
+    this.fileMgr.addWorkflow(newWorkflow).subscribe(() => {
+      this.editing.emit(false);
+    });
   }
 
   cancel(): void {

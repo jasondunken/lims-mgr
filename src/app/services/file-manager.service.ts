@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+
+import { AuthService } from './auth.service';
 
 import { User } from '../models/user.model';
 import { Task } from '../models/task.model';
@@ -15,112 +17,13 @@ import { Processor } from '../models/processor.model';
 export class FileManagerService {
   // CORS isn't happy if you leave off the http://
   apiUrl = 'http://localhost:59070/api';
+
   private taskList: Task[];
-  testUser1: User = {
-    fName: null,
-    lName: null,
-    username: 'kwolfe',
-    dateAdded: '1/1/2019',
-    dateDisabled: null
-  };
-  testUser2: User = {
-    fName: null,
-    lName: null,
-    username: 'brittany stuart',
-    dateAdded: '2/2/2018',
-    dateDisabled: null
-  };
-  testUser3: User = {
-    fName: null,
-    lName: null,
-    username: 'j dog',
-    dateAdded: '3/1/1970',
-    dateDisabled: null
-  };
-  testUser4: User = {
-    fName: null,
-    lName: null,
-    username: 'dr parmar',
-    dateAdded: '12/12/2099',
-    dateDisabled: null
-  };
-  testTasks: Task[] = [
-    {
-      taskId: 1,
-      date: '2019-09-05T14:11:09',
-      filePath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\MyFile\\spect_002_2019_Sept_03.csv',
-      processor: 'hack_spectrometer_12849',
-      workflow: 'WF1',
-      status: 'ERROR',
-      error: 'Invalid character on column 6, row 23: $'
-    },
-    {
-      taskId: 2,
-      date: '2019-008-03T14:11:09',
-      filePath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\waters\\water_010_2019_Sept_13.csv',
-      processor: 'Waters_hplc_20626',
-      workflow: "Jason's WF",
-      status: 'COMPLETE',
-      error: ''
-    },
-    {
-      taskId: 3,
-      date: '2019-01-12T09:11:09',
-      filePath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\MyFile\\spect_002_2019_Sept_13.csv',
-      processor: 'hack_spectrometer_12849',
-      workflow: 'WF1',
-      status: 'PROCESSING',
-      error: ''
-    },
-    {
-      taskId: 4,
-      date: '2019-08-15T14:11:09',
-      filePath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\Lab144\\thermo_002_2019_Sept_14.csv',
-      processor: 'Thermo_Scientific_GC_21037',
-      workflow: 'Lab144_GC',
-      status: 'IN QUEUE',
-      error: ''
-    }
-  ];
+  private workflows: Workflow[];
 
-  workflows: Workflow[] = [
-    {
-      id: 1,
-      name: 'WF1',
-      processor: 'hack_spectrometer_12849',
-      inputPath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\MyFile\\spect_002_2019_Sept_03.csv',
-      outputPath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\OutputFiles\\this-machines-output-folder\\spect_002_2019_Sept_03.csv',
-      frequency: 1
-    },
-    {
-      id: 2,
-      name: "Jason's WF",
-      processor: 'Waters_hplc_20626',
-      inputPath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\MyFile\\spect_002_2019_Sept_03.csv',
-      outputPath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\OutputFiles\\this-machines-output-folder\\spect_002_2019_Sept_03.csv',
-      frequency: 1
-    },
-    {
-      id: 3,
-      name: 'WF2',
-      processor: 'hack_spectrometer_12849',
-      inputPath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\MyFile\\spect_002_2019_Sept_03.csv',
-      outputPath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\OutputFiles\\this-machines-output-folder\\spect_002_2019_Sept_03.csv',
-      frequency: 1
-    },
-    {
-      id: 4,
-      name: 'Lab144_GC',
-      processor: 'hack_spectrometer_12849',
-      inputPath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\MyFile\\spect_002_2019_Sept_03.csv',
-      outputPath: '\\\\AA\\ORD\\Data\\Priv\\NERL_LIMS_PILOT\\Files\\OutputFiles\\this-machines-output-folder\\spect_002_2019_Sept_03.csv',
-      frequency: 1
-    }
-  ];
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
-  constructor(private http: HttpClient) {}
-
-  // api call
+  // api/Tasks
   getTasks(): Observable<Task[]> {
     return this.http.get<Task[]>(this.apiUrl + '/Tasks').pipe(
       tap(tasks => {
@@ -179,9 +82,20 @@ export class FileManagerService {
     return null;
   }
 
-  // api call
-  addWorkflow(workflow: any): void {
-    // add workflow to workflows
+  // api/workflows
+  addWorkflow(workflow: any): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + this.auth.getAuthToken()
+      })
+    };
+    const newWorkflow = JSON.stringify(workflow);
+    return this.http.post<any>(this.apiUrl + '/Workflows', newWorkflow, options).pipe(
+      tap(() => {
+        console.log('added new workflow');
+      })
+    );
   }
 
   // api call

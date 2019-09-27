@@ -65,7 +65,6 @@ export class AuthService {
         if (users) {
           this.users = [...users];
         }
-        console.log(this.users);
         return this.users;
       })
     );
@@ -87,8 +86,6 @@ export class AuthService {
       Username: username,
       Password: password
     };
-    console.log(newUser);
-    console.log(this.httpOptions);
     const request = JSON.stringify(newUser);
     return this.http.post<any>(usersUrl + '/register', request, this.httpOptions).pipe(
       tap((response: any) => {
