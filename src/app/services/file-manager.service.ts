@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
@@ -28,6 +28,10 @@ export class FileManagerService {
         if (tasks) {
           this.taskList = [...tasks];
         }
+      }),
+      catchError(err => {
+        console.log('Error getting tasklist: ', err);
+        return throwError(err);
       })
     );
   }
@@ -51,13 +55,17 @@ export class FileManagerService {
     // should this populate the add task component to make changes or just directly add the task to the tasklist?
   }
 
-  // api call
+  // api/Workflows
   getWorkflows(): Observable<Workflow[]> {
     return this.http.get<Workflow[]>(environment.apiUrl + 'api/Workflows').pipe(
       tap(workflows => {
         if (workflows) {
           this.workflows = [...workflows];
         }
+      }),
+      catchError(err => {
+        console.log('Error getting workflows: ', err);
+        return throwError(err);
       })
     );
   }
@@ -92,6 +100,10 @@ export class FileManagerService {
     return this.http.post<any>(environment.apiUrl + 'api/Workflows', newWorkflow, options).pipe(
       tap(() => {
         console.log('added new workflow');
+      }),
+      catchError(err => {
+        console.log('Error adding new workflow: ', err);
+        return throwError(err);
       })
     );
   }

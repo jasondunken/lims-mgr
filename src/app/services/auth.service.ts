@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
@@ -25,7 +25,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  // api call
+  // /Users
   getUsers(): Observable<User[]> {
     const options = {
       headers: new HttpHeaders({
@@ -37,7 +37,10 @@ export class AuthService {
         if (users) {
           this.users = [...users];
         }
-        return this.users;
+      }),
+      catchError(err => {
+        console.log('Error getting userlist: ', err);
+        return throwError(err);
       })
     );
   }
@@ -50,7 +53,7 @@ export class AuthService {
     }
   }
 
-  // /users/register
+  // /Users/register
   registerNewUser(fName: string, lName: string, username: string, password: string): Observable<User> {
     const newUser = {
       FirstName: fName,
@@ -64,13 +67,13 @@ export class AuthService {
         console.log('response from Users/register: ' + response);
       }),
       catchError(err => {
-        console.log('HTTP error: ', err);
+        console.log('Error registering new user: ', err);
         return throwError(err);
       })
     );
   }
 
-  // /users/authenticate
+  // /Users/authenticate
   login(username: string, password: string): Observable<any> {
     const login = {
       Username: username,
@@ -85,7 +88,7 @@ export class AuthService {
         }
       }),
       catchError(err => {
-        console.log('HTTP error: ', err);
+        console.log('Failed to authenticate user: ', err);
         return throwError(err);
       })
     );
