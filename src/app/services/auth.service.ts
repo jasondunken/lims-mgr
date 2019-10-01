@@ -17,35 +17,8 @@ export class AuthService {
       'Content-Type': 'application/json'
     })
   };
-  testUser1: User = {
-    fName: null,
-    lName: null,
-    username: 'kwolfe',
-    dateAdded: '1/1/2019',
-    dateDisabled: null
-  };
-  testUser2: User = {
-    fName: null,
-    lName: null,
-    username: 'brittany stuart',
-    dateAdded: '2/2/2018',
-    dateDisabled: null
-  };
-  testUser3: User = {
-    fName: null,
-    lName: null,
-    username: 'j dog',
-    dateAdded: '3/1/1970',
-    dateDisabled: null
-  };
-  testUser4: User = {
-    fName: null,
-    lName: null,
-    username: 'dr parmar',
-    dateAdded: '12/12/2099',
-    dateDisabled: null
-  };
-  users: User[] = [this.testUser1, this.testUser2, this.testUser3, this.testUser4];
+
+  private users: User[] = [];
 
   private authenticated = false;
   private authToken = '';
