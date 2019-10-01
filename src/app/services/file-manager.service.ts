@@ -1,3 +1,5 @@
+import { environment } from '../../environments/environment';
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -6,7 +8,6 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 
-import { User } from '../models/user.model';
 import { Task } from '../models/task.model';
 import { Workflow } from '../models/workflow.model';
 import { Processor } from '../models/processor.model';
@@ -15,9 +16,6 @@ import { Processor } from '../models/processor.model';
   providedIn: 'root'
 })
 export class FileManagerService {
-  // CORS isn't happy if you leave off the http://
-  apiUrl = 'http://localhost:59070/api';
-
   private taskList: Task[];
   private workflows: Workflow[];
 
@@ -25,7 +23,7 @@ export class FileManagerService {
 
   // api/Tasks
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(this.apiUrl + '/Tasks').pipe(
+    return this.http.get<Task[]>(environment.apiUrl + 'api/Tasks').pipe(
       tap(tasks => {
         if (tasks) {
           this.taskList = [...tasks];
@@ -55,7 +53,7 @@ export class FileManagerService {
 
   // api call
   getWorkflows(): Observable<Workflow[]> {
-    return this.http.get<Workflow[]>(this.apiUrl + '/Workflows').pipe(
+    return this.http.get<Workflow[]>(environment.apiUrl + 'api/Workflows').pipe(
       tap(workflows => {
         if (workflows) {
           this.workflows = [...workflows];
@@ -91,7 +89,7 @@ export class FileManagerService {
       })
     };
     const newWorkflow = JSON.stringify(workflow);
-    return this.http.post<any>(this.apiUrl + '/Workflows', newWorkflow, options).pipe(
+    return this.http.post<any>(environment.apiUrl + 'api/Workflows', newWorkflow, options).pipe(
       tap(() => {
         console.log('added new workflow');
       })

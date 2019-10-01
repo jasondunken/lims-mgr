@@ -1,3 +1,5 @@
+import { environment } from '../../environments/environment';
+
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -5,9 +7,6 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
-
-// DEV PORT: 59070
-const usersUrl = ' http://localhost:59070/users';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +59,7 @@ export class AuthService {
         Authorization: 'Bearer ' + this.authToken
       })
     };
-    return this.http.get<User[]>(usersUrl, options).pipe(
+    return this.http.get<User[]>(environment.apiUrl + 'Users', options).pipe(
       tap(users => {
         if (users) {
           this.users = [...users];
@@ -87,9 +86,9 @@ export class AuthService {
       Password: password
     };
     const request = JSON.stringify(newUser);
-    return this.http.post<any>(usersUrl + '/register', request, this.httpOptions).pipe(
+    return this.http.post<any>(environment.apiUrl + 'Users/register', request, this.httpOptions).pipe(
       tap((response: any) => {
-        console.log('response from /register: ' + response);
+        console.log('response from Users/register: ' + response);
       }),
       catchError(err => {
         console.log('HTTP error: ', err);
@@ -105,7 +104,7 @@ export class AuthService {
       Password: password
     };
     const request = JSON.stringify(login);
-    return this.http.post<any>(usersUrl + '/authenticate', request, this.httpOptions).pipe(
+    return this.http.post<any>(environment.apiUrl + 'Users/authenticate', request, this.httpOptions).pipe(
       tap((response: any) => {
         this.authToken = response.token;
         if (this.authToken !== null && this.authToken !== 'null' && this.authToken !== undefined && this.authToken !== '') {
