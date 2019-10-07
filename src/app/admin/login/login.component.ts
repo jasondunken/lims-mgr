@@ -18,22 +18,23 @@ import { UsersComponent } from '../users/users.component';
 export class LoginComponent implements OnInit {
   registeringUser = false;
 
-  usrName: string;
-  password: string;
-
   constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit() {}
 
   login(username: HTMLInputElement, password: HTMLInputElement): void {
-    this.auth
-      .login(username.value, password.value)
-      .pipe(
-        tap(user => {
-          this.router.navigateByUrl('/tasks');
-        })
-      )
-      .subscribe();
+    this.auth.login(username.value, password.value).subscribe(response => {
+      this.handleLoginResponse(response);
+    });
+  }
+
+  handleLoginResponse(response): void {
+    // this endpoint returns a user object on success
+    if (response.error) {
+      console.log('Error:loginResponse: ' + response.error);
+    } else {
+      this.router.navigateByUrl('/tasks');
+    }
   }
 
   register(): void {

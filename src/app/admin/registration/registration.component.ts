@@ -12,14 +12,24 @@ export class RegistrationComponent implements OnInit {
 
   constructor(private auth: AuthService) {}
 
-  ngOnInit() {
-    console.log('registrating module onInit()');
-  }
+  ngOnInit() {}
 
   registerUser(fName: HTMLInputElement, lName: HTMLInputElement, username: HTMLInputElement, password: HTMLInputElement) {
-    this.auth.registerNewUser(fName.value, lName.value, username.value, password.value).subscribe(() => {
-      this.registeringUser.emit(false);
+    this.auth.registerNewUser(fName.value, lName.value, username.value, password.value).subscribe(response => {
+      this.handleRegisterResponse(response);
     });
+  }
+
+  handleRegisterResponse(response): void {
+    // this endpoint returns null on success
+    if (response) {
+      if (response.error) {
+        console.log('Registration response error: ' + response.error);
+      } else {
+        console.log(response);
+      }
+    }
+    this.cancel();
   }
 
   cancel(): void {
