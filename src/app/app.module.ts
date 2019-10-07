@@ -18,7 +18,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
 import { LoginComponent } from './admin/login/login.component';
-import { AdminComponent } from './admin/admin/admin.component';
 import { MainComponent } from './main/main.component';
 import { TasklistComponent } from './admin/tasklist/tasklist.component';
 import { UsersComponent } from './admin/users/users.component';
@@ -37,7 +36,6 @@ import { AuthEffects } from './store/effects/auth.effects';
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminComponent,
     MainComponent,
     TasklistComponent,
     UsersComponent,
@@ -65,4 +63,4 @@ import { AuthEffects } from './store/effects/auth.effects';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
