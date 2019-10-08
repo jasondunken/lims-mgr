@@ -17,10 +17,10 @@ export class WorkflowDetailComponent implements OnInit {
   constructor(private fileMgr: FileManagerService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.workflow = this.fileMgr.getWorkflow(id);
-    }
+    // const id = +this.route.snapshot.paramMap.get('id');
+    // if (id) {
+    //   this.workflow = this.fileMgr.getWorkflow(id);
+    // }
     const name = this.route.snapshot.paramMap.get('name');
     if (name) {
       this.workflow = this.fileMgr.getWorkflowByName(name);

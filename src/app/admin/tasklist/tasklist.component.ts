@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FileManagerService } from 'src/app/services/file-manager.service';
 
 import { Task } from 'src/app/models/task.model';
+import { Workflow } from 'src/app/models/workflow.model';
 
 @Component({
   selector: 'app-tasklist',
@@ -13,12 +14,16 @@ import { Task } from 'src/app/models/task.model';
 export class TasklistComponent implements OnInit {
   columnNames = ['task', 'workflow', 'status', 'date'];
   taskList: Task[] = [];
+  workflows: Workflow[] = [];
 
   constructor(private fileMgr: FileManagerService, private router: Router) {}
 
   ngOnInit() {
     this.fileMgr.getTasks().subscribe(tasks => {
       this.taskList = [...tasks];
+    });
+    this.fileMgr.getWorkflows().subscribe(workflows => {
+      this.workflows = [...workflows];
     });
   }
 

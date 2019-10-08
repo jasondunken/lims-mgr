@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environment';
 
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
@@ -15,9 +15,14 @@ import { Processor } from '../models/processor.model';
 @Injectable({
   providedIn: 'root'
 })
-export class FileManagerService {
+export class FileManagerService implements OnInit {
   private taskList: Task[];
   private workflows: Workflow[];
+  private processors: any[];
+
+  ngOnInit(): void {
+    this.getWorkflows().subscribe();
+  }
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
@@ -42,7 +47,15 @@ export class FileManagerService {
         return task;
       }
     }
-    return null;
+    return {
+      taskId: null,
+      date: null,
+      filePath: null,
+      processor: null,
+      workflow: null,
+      status: null,
+      error: null
+    };
   }
 
   // api call
@@ -76,7 +89,14 @@ export class FileManagerService {
         return wf;
       }
     }
-    return null;
+    return {
+      id: null,
+      name: null,
+      processor: null,
+      inputPath: null,
+      outputPath: null,
+      frequency: null
+    };
   }
 
   getWorkflowByName(name: string): Workflow {
@@ -85,10 +105,17 @@ export class FileManagerService {
         return wf;
       }
     }
-    return null;
+    return {
+      id: null,
+      name: null,
+      processor: null,
+      inputPath: null,
+      outputPath: null,
+      frequency: null
+    };
   }
 
-  // api/workflows
+  // api/Workflows
   addWorkflow(workflow: any): Observable<any> {
     const options = {
       headers: new HttpHeaders({
@@ -118,8 +145,24 @@ export class FileManagerService {
     // rend request to remove task from tasklist
   }
 
-  // api call
-  getProcessors(): Processor[] {
-    return [{ name: 'hack_spectrometer_12849' }, { name: 'Waters_hpic_10626' }, { name: 'Thermo_Scientific_GC_21037' }];
+  // api/Processors
+  getProcessors(): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + this.auth.getAuthToken()
+      })
+    };
+    return this.http.get<any>(environment.apiUrl + 'api/Processors', options).pipe(
+      tap(response => {
+        if (response) {
+          this.processors = [...response.data.processors];
+        }
+      }),
+      catchError(err => {
+        console.log('Error getting workflows: ', err);
+        return throwError(err);
+      })
+    );
   }
 }

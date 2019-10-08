@@ -76,8 +76,8 @@ export class AuthService {
   // /Users/authenticate
   login(username: string, password: string): Observable<any> {
     const login = {
-      Username: username,
-      Password: password
+      username,
+      password
     };
     const request = JSON.stringify(login);
     return this.http.post<any>(environment.apiUrl + 'Users/authenticate', request, this.httpOptions).pipe(
@@ -88,7 +88,7 @@ export class AuthService {
         }
       }),
       catchError(err => {
-        console.log('Failed to authenticate user: ', err);
+        alert('Failed to authenticate user: \n' + err.status + ' | ' + err.statusText);
         return throwError(err);
       })
     );

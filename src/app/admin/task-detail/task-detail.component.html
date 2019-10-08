@@ -2,15 +2,15 @@
   <ng-container matCard *ngIf="task">
     <mat-card class="task-detail">
       <mat-card-header>
-        <mat-card-title>Task ID {{ task.taskId }}</mat-card-title>
+        <mat-card-title>Task ID {{ task.taskId || 'invalid' }}</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Status: {{ task.status }}</p>
-        <p>Date: {{ task.date }}</p>
-        <p>File: {{ task.filePath }}</p>
-        <p>Processor: {{ task.processor }}</p>
-        <p>Workflow: {{ task.workflow }}</p>
-        <p>Error: {{ task.error }}</p>
+        <p>Status: {{ task.status || 'unknown' }}</p>
+        <p>Date: {{ task.date || 'unknown' }}</p>
+        <p>File: {{ task.filePath || 'unknown' }}</p>
+        <p>Processor: {{ task.processor || 'unknown' }}</p>
+        <p>Workflow: {{ task.workflow || 'unknown' }}</p>
+        <p>Error: {{ task.error || 'unknown' }}</p>
       </mat-card-content>
       <div class="controls">
         <button mat-button class="control" (click)="rerunTask()">Re-run Task</button>

@@ -23,6 +23,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login(username: HTMLInputElement, password: HTMLInputElement): void {
+    if (username.value.length < 1 || password.value.length < 1) {
+      alert('Username and Password are required');
+      return;
+    }
     this.auth.login(username.value, password.value).subscribe(response => {
       this.handleLoginResponse(response);
     });

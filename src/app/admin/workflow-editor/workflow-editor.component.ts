@@ -15,14 +15,16 @@ export class WorkflowEditorComponent implements OnInit {
   @Output() editing = new EventEmitter<boolean>();
 
   workflow: Workflow;
-  processors: Processor[];
+  processors: string[];
 
   constructor(private fileMgr: FileManagerService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.workflow = this.fileMgr.getWorkflow(id);
-    this.processors = this.fileMgr.getProcessors();
+    this.fileMgr.getProcessors().subscribe(response => {
+      this.processors = [...response.data.processors];
+    });
   }
 
   saveWorkflow(

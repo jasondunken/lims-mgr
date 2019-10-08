@@ -27,8 +27,8 @@ export class WorkflowsComponent implements OnInit {
     });
   }
 
-  gotoWorkflowDetail(id: number) {
-    this.router.navigateByUrl('/workflows/detail/' + id);
+  gotoWorkflowDetail(name: string) {
+    this.router.navigateByUrl('/workflows/detail-by-name/' + name);
   }
 
   addWorkflow(): void {
