@@ -1,0 +1,21 @@
+<div class="centered">
+  <mat-card class="task-detail">
+    <mat-card-header>
+      <mat-card-title>Upload a processor</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name="name" #name />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>File path</mat-label>
+        <input matInput type="text" name="filePath" #filePath />
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions class="controls">
+      <button mat-button class="control" (click)="uploadProcessor(name, filePath)">Save to database</button>
+      <button mat-button class="control" (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
