@@ -29,4 +29,8 @@ export class HeaderComponent implements OnInit {
   gotoWorkflows(): void {
     this.router.navigateByUrl('/workflows');
   }
+
+  gotoProcessors(): void {
+    this.router.navigateByUrl('/processors');
+  }
 }

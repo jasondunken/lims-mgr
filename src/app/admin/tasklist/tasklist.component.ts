@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { FileManagerService } from 'src/app/services/file-manager.service';
+import { TaskManagerService } from 'src/app/services/task-manager.service';
 
 import { Task } from 'src/app/models/task.model';
 import { Workflow } from 'src/app/models/workflow.model';
@@ -16,13 +16,13 @@ export class TasklistComponent implements OnInit {
   taskList: Task[] = [];
   workflows: Workflow[] = [];
 
-  constructor(private fileMgr: FileManagerService, private router: Router) {}
+  constructor(private taskMgr: TaskManagerService, private router: Router) {}
 
   ngOnInit() {
-    this.fileMgr.getTasks().subscribe(tasks => {
+    this.taskMgr.getTasks().subscribe(tasks => {
       this.taskList = [...tasks];
     });
-    this.fileMgr.getWorkflows().subscribe(workflows => {
+    this.taskMgr.getWorkflows().subscribe(workflows => {
       this.workflows = [...workflows];
     });
   }

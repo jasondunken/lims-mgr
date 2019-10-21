@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Location } from '@angular/common';
 
-import { FileManagerService } from '../../services/file-manager.service';
+import { TaskManagerService } from '../../services/task-manager.service';
 import { Task } from '../../models/task.model';
 
 @Component({
@@ -13,12 +13,12 @@ import { Task } from '../../models/task.model';
 })
 export class TaskDetailComponent implements OnInit {
   task: Task;
-  constructor(private route: ActivatedRoute, private fileMgr: FileManagerService, private location: Location) {}
+  constructor(private route: ActivatedRoute, private taskMgr: TaskManagerService, private location: Location) {}
 
   ngOnInit() {
     // the + is a TS macro for converting type of a string to a number
     const id = +this.route.snapshot.paramMap.get('id');
-    this.task = this.fileMgr.getTask(id);
+    this.task = this.taskMgr.getTask(id);
   }
 
   rerunTask(id: number): void {

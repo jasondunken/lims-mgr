@@ -31,6 +31,8 @@ import { RegistrationComponent } from './admin/registration/registration.compone
 
 import { AuthService } from './services/auth.service';
 import { AuthEffects } from './store/effects/auth.effects';
+import { ProcessorsComponent } from './admin/processors/processors.component';
+import { ProcessorsUploadComponent } from './admin/processors-upload/processors-upload.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { AuthEffects } from './store/effects/auth.effects';
     WorkflowEditorComponent,
     UserEditorComponent,
     WorkflowDetailComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProcessorsComponent,
+    ProcessorsUploadComponent
   ],
   imports: [
     BrowserModule,

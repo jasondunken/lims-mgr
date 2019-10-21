@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
-import { FileManagerService } from '../services/file-manager.service';
 
 @Component({
   selector: 'app-main',
@@ -9,7 +8,7 @@ import { FileManagerService } from '../services/file-manager.service';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  constructor(private auth: AuthService, private fMgr: FileManagerService) {}
+  constructor(private auth: AuthService) {}
 
   ngOnInit() {}
 

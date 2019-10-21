@@ -1,11 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-
-import { FileManagerService } from '../../services/file-manager.service';
-
+import { TaskManagerService } from '../../services/task-manager.service';
 import { Workflow } from '../../models/workflow.model';
 
 @Component({
@@ -19,10 +15,10 @@ export class WorkflowsComponent implements OnInit {
 
   editingWorkflow = false;
 
-  constructor(private fileMgr: FileManagerService, private router: Router) {}
+  constructor(private taskMgr: TaskManagerService, private router: Router) {}
 
   ngOnInit() {
-    this.fileMgr.getWorkflows().subscribe(workflows => {
+    this.taskMgr.getWorkflows().subscribe(workflows => {
       this.workflows = [...workflows];
     });
   }

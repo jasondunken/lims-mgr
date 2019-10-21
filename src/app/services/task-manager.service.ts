@@ -153,14 +153,14 @@ export class TaskManagerService implements OnInit {
         Authorization: 'Bearer ' + this.auth.getAuthToken()
       })
     };
-    return this.http.get<any>(environment.apiUrl + 'api/Processors', options).pipe(
+    return this.http.get<any>(environment.apiUrl + 'Processors', options).pipe(
       tap(response => {
         if (response) {
           this.processors = [...response.data.processors];
+          console.log(this.processors);
         }
       }),
       catchError(err => {
-        console.log('Error getting workflows: ', err);
         return throwError(err);
       })
     );

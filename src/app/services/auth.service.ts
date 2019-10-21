@@ -62,6 +62,7 @@ export class AuthService {
       Password: password
     };
     const request = JSON.stringify(newUser);
+    console.log('Registering new user ', request);
     return this.http.post<any>(environment.apiUrl + 'Users/register', request, this.httpOptions).pipe(
       tap((response: any) => {
         console.log('response from Users/register: ' + response);
@@ -80,6 +81,8 @@ export class AuthService {
       password
     };
     const request = JSON.stringify(login);
+    console.log('Logging in user ', request);
+    // this.authenticated = true; // <----------------------------------------------------------------------------------- remove this
     return this.http.post<any>(environment.apiUrl + 'Users/authenticate', request, this.httpOptions).pipe(
       tap((response: any) => {
         this.authToken = response.token;

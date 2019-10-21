@@ -1,9 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FileManagerService } from 'src/app/services/file-manager.service';
-
+import { TaskManagerService } from 'src/app/services/task-manager.service';
 import { ActivatedRoute } from '@angular/router';
 
-import { Processor } from '../../models/processor.model';
 import { Workflow } from 'src/app/models/workflow.model';
 
 @Component({
@@ -15,15 +13,23 @@ export class WorkflowEditorComponent implements OnInit {
   @Output() editing = new EventEmitter<boolean>();
 
   workflow: Workflow;
-  processors: string[];
+  processors: string[] = [];
 
-  constructor(private fileMgr: FileManagerService, private route: ActivatedRoute) {}
+  constructor(private taskMgr: TaskManagerService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     const id = +this.route.snapshot.paramMap.get('id');
-    this.workflow = this.fileMgr.getWorkflow(id);
-    this.fileMgr.getProcessors().subscribe(response => {
-      this.processors = [...response.data.processors];
+    this.workflow = this.taskMgr.getWorkflow(id);
+    this.taskMgr.getProcessors().subscribe(response => {
+      if (response) {
+        if (response.data.processors.length > 0) {
+          this.processors = [...response.data.processors];
+        } else {
+          this.processors[0] = 'There are currently no processors installed';
+        }
+      } else {
+        this.processors[0] = 'There are currently no processors installed';
+      }
     });
   }
 
@@ -42,7 +48,7 @@ export class WorkflowEditorComponent implements OnInit {
       frequency: hz.value
     };
     console.log('newWorkflow: ' + JSON.stringify(newWorkflow));
-    this.fileMgr.addWorkflow(newWorkflow).subscribe(() => {
+    this.taskMgr.addWorkflow(newWorkflow).subscribe(() => {
       this.editing.emit(false);
     });
   }

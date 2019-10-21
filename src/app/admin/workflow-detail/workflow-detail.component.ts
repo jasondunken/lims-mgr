@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Location } from '@angular/common';
-
 import { ActivatedRoute } from '@angular/router';
 
-import { FileManagerService } from '../../services/file-manager.service';
+import { TaskManagerService } from '../../services/task-manager.service';
 import { Workflow } from '../../models/workflow.model';
 
 @Component({
@@ -14,7 +12,7 @@ import { Workflow } from '../../models/workflow.model';
 })
 export class WorkflowDetailComponent implements OnInit {
   workflow: Workflow;
-  constructor(private fileMgr: FileManagerService, private route: ActivatedRoute, private location: Location) {}
+  constructor(private taskMgr: TaskManagerService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit() {
     // const id = +this.route.snapshot.paramMap.get('id');
@@ -23,7 +21,7 @@ export class WorkflowDetailComponent implements OnInit {
     // }
     const name = this.route.snapshot.paramMap.get('name');
     if (name) {
-      this.workflow = this.fileMgr.getWorkflowByName(name);
+      this.workflow = this.taskMgr.getWorkflowByName(name);
     }
   }
 
