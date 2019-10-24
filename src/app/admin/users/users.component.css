@@ -48,3 +48,7 @@ td.mat-cell {
 .mat-form-field {
   margin: 10px;
 }
+
+.mat-spinner {
+  margin: 0 auto;
+}

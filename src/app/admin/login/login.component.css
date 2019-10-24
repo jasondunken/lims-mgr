@@ -45,3 +45,11 @@
   flex: 1 1 auto;
   min-width: 1em;
 }
+
+.mat-spinner {
+  margin: 15px auto;
+}
+
+.errorMessage {
+  margin-bottom: 10px;
+}

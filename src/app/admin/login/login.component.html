@@ -2,28 +2,41 @@
   <mat-card class="login" *ngIf="!registeringUser">
     <h2>Login</h2>
 
-    <div class="centered">
-      <span class="mat-centered">
-        <mat-form-field>
-          <mat-label>Username:</mat-label>
-          <input matInput id="usr-name" #username />
-        </mat-form-field>
-      </span>
-    </div>
-    <span class="spacer"></span>
-    <div class="centered">
-      <span class="mat-centered">
-        <mat-form-field>
-          <mat-label>Password:</mat-label>
-          <input matInput id="password" type="password" #password />
-        </mat-form-field>
-      </span>
-    </div>
+    <mat-card-content>
+      <div class="centered">
+        <span class="mat-centered">
+          <mat-form-field>
+            <mat-label>Username:</mat-label>
+            <input matInput id="usr-name" #username />
+          </mat-form-field>
+        </span>
+      </div>
+      <span class="spacer"></span>
+      <div class="centered">
+        <span class="mat-centered">
+          <mat-form-field>
+            <mat-label>Password:</mat-label>
+            <input matInput id="password" type="password" #password />
+          </mat-form-field>
+        </span>
+      </div>
 
-    <div class="controls">
-      <button mat-button class="control" (click)="login(username, password)">Login</button>
-      <button mat-button class="control" (click)="register()">Register</button>
-    </div>
+      <div class="controls">
+        <div class="errorMessage">{{ errorMessage }}</div>
+        <ng-container *ngIf="!loggingIn">
+          <button mat-button class="control" (click)="login(username, password)">
+            Login
+          </button>
+          <button mat-button class="control" (click)="register()">Register</button>
+        </ng-container>
+
+        <ng-container *ngIf="loggingIn">
+          logging in...
+          <mat-spinner [diameter]="32"></mat-spinner>
+        </ng-container>
+      </div>
+    </mat-card-content>
+    <mat-card-footer></mat-card-footer>
   </mat-card>
 
   <ng-container *ngIf="registeringUser">

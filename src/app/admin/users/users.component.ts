@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
+  loadingUsers: boolean;
   editingUser = false;
 
   columnNames = ['username', 'date-added', 'date-disabled'];
@@ -17,8 +18,10 @@ export class UsersComponent implements OnInit {
   constructor(private auth: AuthService) {}
 
   ngOnInit() {
+    this.loadingUsers = true;
     this.auth.getUsers().subscribe(users => {
       this.userList = [...users];
+      this.loadingUsers = false;
     });
   }
 

@@ -8,13 +8,15 @@
         <mat-label>Name</mat-label>
         <input matInput type="text" name="name" #name />
       </mat-form-field>
-      <mat-form-field>
-        <mat-label>File path</mat-label>
-        <input matInput type="text" name="filePath" #filePath />
-      </mat-form-field>
+      <mat-file-upload
+        matInput
+        #filePath
+        [showUploadButton]="false"
+        (selectedFilesChanged)="onSelectedFilesChanged($event)"
+      ></mat-file-upload>
     </mat-card-content>
     <mat-card-actions class="controls">
-      <button mat-button class="control" (click)="uploadProcessor(name, filePath)">Upload Processor</button>
+      <button mat-button class="control" (click)="uploadProcessor(name)">Upload Processor</button>
       <button mat-button class="control" (click)="cancel()">Cancel</button>
     </mat-card-actions>
   </mat-card>

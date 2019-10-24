@@ -3,6 +3,7 @@
     <mat-card-header>
       <h2>Users</h2>
     </mat-card-header>
+    <div *ngIf="loadingUsers"><mat-spinner></mat-spinner></div>
     <ng-container *ngIf="userList && userList.length > 0">
       <table mat-table [dataSource]="userList">
         <ng-container matColumnDef="username">

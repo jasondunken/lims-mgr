@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { User } from '../models/user.model';
@@ -82,7 +82,6 @@ export class AuthService {
     };
     const request = JSON.stringify(login);
     console.log('Logging in user ', request);
-    // this.authenticated = true; // <----------------------------------------------------------------------------------- remove this
     return this.http.post<any>(environment.apiUrl + 'Users/authenticate', request, this.httpOptions).pipe(
       tap((response: any) => {
         this.authToken = response.token;
@@ -91,8 +90,7 @@ export class AuthService {
         }
       }),
       catchError(err => {
-        alert('Failed to authenticate user: \n' + err.status + ' | ' + err.statusText);
-        return throwError(err);
+        return of({ error: 'falied to login user!' });
       })
     );
   }

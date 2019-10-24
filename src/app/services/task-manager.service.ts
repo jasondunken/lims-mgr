@@ -165,4 +165,27 @@ export class TaskManagerService implements OnInit {
       })
     );
   }
+
+  addProcessor(processorName: string, filePath: string): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application',
+        Authorization: 'Bearer ' + this.auth.getAuthToken()
+      })
+    };
+    const request = JSON.stringify('test request');
+    return this.http.post<any>(environment.apiUrl + 'Processors', request, options).pipe(
+      tap(response => {
+        if (response) {
+          console.log(response);
+          if (response.data) {
+            this.processors = [...response.data.processors];
+          }
+        }
+      }),
+      catchError(err => {
+        return throwError(err);
+      })
+    );
+  }
 }

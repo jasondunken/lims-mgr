@@ -9,17 +9,24 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  loggingIn: boolean;
+  errorMessage: string;
   registeringUser = false;
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loggingIn = false;
+    this.errorMessage = '';
+  }
 
   login(username: HTMLInputElement, password: HTMLInputElement): void {
     if (username.value.length < 1 || password.value.length < 1) {
       alert('Username and Password are required');
       return;
     }
+    this.loggingIn = true;
+    this.errorMessage = '';
     this.auth.login(username.value, password.value).subscribe(response => {
       this.handleLoginResponse(response);
     });
@@ -27,8 +34,10 @@ export class LoginComponent implements OnInit {
 
   handleLoginResponse(response): void {
     // this endpoint returns a user object on success
+    this.loggingIn = false;
     if (response.error) {
       console.log('Error:loginResponse: ' + response.error);
+      this.errorMessage = response.error;
     } else {
       this.router.navigateByUrl('/tasks');
     }

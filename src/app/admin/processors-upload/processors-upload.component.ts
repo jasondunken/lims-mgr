@@ -10,14 +10,28 @@ import { TaskManagerService } from 'src/app/services/task-manager.service';
 export class ProcessorsUploadComponent implements OnInit {
   @Output() addingProcessor = new EventEmitter<boolean>();
 
+  selectedFile: string;
+
   constructor(private taskMgr: TaskManagerService) {}
 
   ngOnInit() {}
 
-  uploadProcessor(nameInput: HTMLInputElement, filePathInput: HTMLInputElement) {
+  onSelectedFilesChanged($event) {
+    this.selectedFile = '';
+    for (const file of $event) {
+      this.selectedFile = file.name;
+    }
+    console.log(this.selectedFile);
+  }
+
+  uploadProcessor(nameInput: HTMLInputElement) {
     // add processor to backend
-    console.log(nameInput.value + ', ' + filePathInput.value);
-    this.addingProcessor.emit(false);
+    if (this.selectedFile !== null && this.selectedFile !== undefined && this.selectedFile !== '') {
+      this.taskMgr.addProcessor(nameInput.value, this.selectedFile).subscribe();
+      this.addingProcessor.emit(false);
+    } else {
+      console.log('No file selected');
+    }
   }
 
   cancel(): void {
