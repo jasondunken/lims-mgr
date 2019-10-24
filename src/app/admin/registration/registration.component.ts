@@ -9,12 +9,19 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class RegistrationComponent implements OnInit {
   @Output() registeringUser = new EventEmitter<boolean>();
+  waitingForResponse: boolean;
+  errorMessage: string;
 
   constructor(private auth: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.waitingForResponse = false;
+    this.errorMessage = '';
+  }
 
   registerUser(fName: HTMLInputElement, lName: HTMLInputElement, username: HTMLInputElement, password: HTMLInputElement) {
+    this.waitingForResponse = true;
+    this.errorMessage = '';
     this.auth.registerNewUser(fName.value, lName.value, username.value, password.value).subscribe(response => {
       this.handleRegisterResponse(response);
     });
@@ -22,14 +29,15 @@ export class RegistrationComponent implements OnInit {
 
   handleRegisterResponse(response): void {
     // this endpoint returns null on success
+    this.waitingForResponse = false;
     if (response) {
       if (response.error) {
-        console.log('Registration response error: ' + response.error);
+        this.errorMessage = response.error;
       } else {
         console.log(response);
+        this.cancel();
       }
     }
-    this.cancel();
   }
 
   cancel(): void {

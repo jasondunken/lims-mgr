@@ -68,8 +68,7 @@ export class AuthService {
         console.log('response from Users/register: ' + response);
       }),
       catchError(err => {
-        console.log('Error registering new user: ', err);
-        return throwError(err);
+        return of({ error: 'falied to register user!' });
       })
     );
   }

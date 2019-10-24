@@ -52,3 +52,7 @@ td.mat-cell {
 .mat-spinner {
   margin: 0 auto;
 }
+
+.errorMessage {
+  margin-bottom: 10px;
+}

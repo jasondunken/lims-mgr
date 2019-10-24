@@ -10,6 +10,8 @@ import { AuthService } from '../../services/auth.service';
 export class UserEditorComponent implements OnInit {
   @Output() editing = new EventEmitter<boolean>();
 
+  errorMessage: string;
+
   constructor(private auth: AuthService) {}
 
   ngOnInit() {}

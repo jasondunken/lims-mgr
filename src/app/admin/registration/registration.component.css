@@ -33,3 +33,11 @@
 .mat-form-field {
   margin: 10px;
 }
+
+.mat-spinner {
+  margin: 15px auto;
+}
+
+.errorMessage {
+  margin-bottom: 10px;
+}
