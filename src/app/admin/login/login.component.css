@@ -1,6 +1,6 @@
 .mat-card {
-  min-width: 180px;
-  max-width: 180px;
+  min-width: 200px;
+  max-width: 200px;
   border-radius: 0px;
 }
 
@@ -12,6 +12,11 @@
 
 .mat-button {
   border: 1px solid #303030;
+  margin-top: 10px;
+}
+
+.mat-form-field {
+  margin: 10px;
 }
 
 .centered {

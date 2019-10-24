@@ -44,3 +44,7 @@ td.mat-cell {
 .mat-button {
   border: 1px solid #303030;
 }
+
+.mat-form-field {
+  margin: 10px;
+}
