@@ -9,6 +9,9 @@ import { TaskManagerService } from 'src/app/services/task-manager.service';
   styleUrls: ['./processors.component.css']
 })
 export class ProcessorsComponent implements OnInit {
+  loadingProcessors: boolean;
+  errorMessage: string;
+
   columnNames = ['name'];
   processors: Processor[];
 
@@ -18,13 +21,17 @@ export class ProcessorsComponent implements OnInit {
   constructor(private fileMgr: TaskManagerService) {}
 
   ngOnInit() {
+    this.loadingProcessors = true;
+    this.errorMessage = '';
     this.processors = [];
+
     this.fileMgr.getProcessors().subscribe(processors => {
       if (processors && processors.length > 0) {
         this.processors = [...processors];
       } else {
         this.noProcessorsMessage = 'There are currently no processors installed.';
       }
+      this.loadingProcessors = false;
     });
   }
 

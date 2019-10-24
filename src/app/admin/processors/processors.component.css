@@ -71,3 +71,11 @@ td.mat-cell {
 #noProcessorsMessage {
   text-align: center;
 }
+
+.mat-spinner {
+  margin: 15px auto;
+}
+
+.errorMessage {
+  margin-bottom: 10px;
+}
