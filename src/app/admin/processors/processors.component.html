@@ -15,8 +15,8 @@
       </table>
     </ng-container>
     <ng-container *ngIf="loadingProcessors"><mat-spinner></mat-spinner></ng-container>
-    <ng-container *ngIf="noProcessorsMessage">
-      <div id="noProcessorsMessage">{{ noProcessorsMessage }}</div>
+    <ng-container *ngIf="errorMessage">
+      <div class="errorMessage">{{ errorMessage }}</div>
     </ng-container>
     <div class="controls">
       <button mat-button class="control" (click)="addProcessor()">Add Processor</button>

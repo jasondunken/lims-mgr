@@ -68,14 +68,11 @@ td.mat-cell {
   margin: 10px;
 }
 
-#noProcessorsMessage {
-  text-align: center;
-}
-
 .mat-spinner {
   margin: 15px auto;
 }
 
 .errorMessage {
   margin-bottom: 10px;
+  text-align: center;
 }
