@@ -3,7 +3,7 @@
     <mat-card-header>
       <h2>Workflows</h2>
     </mat-card-header>
-    <ng-container *ngIf="workflows && workflows.length > 0">
+    <ng-container *ngIf="workflows && workflows.length > 0 && !loadingWorkflows">
       <table mat-table [dataSource]="workflows">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -40,6 +40,7 @@
         <button mat-button class="control" (click)="addWorkflow()">Add Workflow</button>
       </div>
     </ng-container>
+    <ng-container *ngIf="loadingWorkflows"><mat-spinner></mat-spinner></ng-container>
   </mat-card>
   <ng-container *ngIf="editingWorkflow">
     <app-workflow-editor (editing)="isEditing($event)"></app-workflow-editor>

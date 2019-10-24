@@ -10,6 +10,9 @@ import { Workflow } from '../../models/workflow.model';
   styleUrls: ['./workflows.component.css']
 })
 export class WorkflowsComponent implements OnInit {
+  loadingWorkflows: boolean;
+  errorMessage: string;
+
   columnNames = ['name', 'processor', 'input-path', 'output-path', 'frequency'];
   workflows: Workflow[];
 
@@ -18,8 +21,12 @@ export class WorkflowsComponent implements OnInit {
   constructor(private taskMgr: TaskManagerService, private router: Router) {}
 
   ngOnInit() {
+    this.loadingWorkflows = true;
+    this.errorMessage = '';
+
     this.taskMgr.getWorkflows().subscribe(workflows => {
       this.workflows = [...workflows];
+      this.loadingWorkflows = false;
     });
   }
 

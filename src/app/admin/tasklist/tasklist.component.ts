@@ -12,6 +12,10 @@ import { Workflow } from 'src/app/models/workflow.model';
   styleUrls: ['./tasklist.component.css']
 })
 export class TasklistComponent implements OnInit {
+  loadingTasklist: boolean;
+  loadingWorkflows: boolean;
+  errorMessage: string;
+
   columnNames = ['task', 'workflow', 'status', 'date'];
   taskList: Task[] = [];
   workflows: Workflow[] = [];
@@ -19,11 +23,17 @@ export class TasklistComponent implements OnInit {
   constructor(private taskMgr: TaskManagerService, private router: Router) {}
 
   ngOnInit() {
+    this.loadingTasklist = true;
+    this.loadingWorkflows = true;
+    this.errorMessage = '';
+
     this.taskMgr.getTasks().subscribe(tasks => {
       this.taskList = [...tasks];
+      this.loadingTasklist = false;
     });
     this.taskMgr.getWorkflows().subscribe(workflows => {
       this.workflows = [...workflows];
+      this.loadingWorkflows = false;
     });
   }
 
