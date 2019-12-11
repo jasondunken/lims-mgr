@@ -3,44 +3,63 @@
     <mat-card-header>
       <h2>Workflows</h2>
     </mat-card-header>
-    <ng-container *ngIf="workflows && workflows.length > 0 && !loadingWorkflows">
+    <ng-container
+      *ngIf="workflows && workflows.length > 0 && !loadingWorkflows"
+    >
       <table mat-table [dataSource]="workflows">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Name</th>
           <td mat-cell *matCellDef="let element">
-            <button mat-button (click)="gotoWorkflowDetail(element.id)">{{ element.name || 'unknown' }}</button>
+            <button mat-button (click)="gotoWorkflowDetail(element.id)">
+              {{ element.name || "unknown" }}
+            </button>
           </td>
         </ng-container>
 
         <ng-container matColumnDef="processor">
           <th mat-header-cell *matHeaderCellDef>Processor</th>
-          <td mat-cell *matCellDef="let element">{{ element.processor || 'unknown' }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.processor || "unknown" }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="input-path">
           <th mat-header-cell *matHeaderCellDef>Input File Location</th>
-          <td mat-cell *matCellDef="let element">{{ element.inputPath || 'unknown' }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.inputPath || "unknown" }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="output-path">
           <th mat-header-cell *matHeaderCellDef>Output File Location</th>
-          <td mat-cell *matCellDef="let element">{{ element.outputPath || 'unknown' }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.outputPath || "unknown" }}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="frequency">
           <th mat-header-cell *matHeaderCellDef>Frequency</th>
-          <td mat-cell *matCellDef="let element">{{ element.frequency || 'unknown' }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.frequency || "unknown" }}
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
         <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
       </table>
-
-      <div class="controls">
-        <button mat-button class="control" (click)="addWorkflow()">Add Workflow</button>
-      </div>
     </ng-container>
-    <ng-container *ngIf="loadingWorkflows"><mat-spinner></mat-spinner></ng-container>
+    <ng-container *ngIf="loadingWorkflows"
+      ><mat-spinner></mat-spinner
+    ></ng-container>
+    <ng-container *ngIf="errorMessage">
+      <div class="errorMessage">{{ errorMessage }}</div>
+    </ng-container>
+
+    <div class="controls">
+      <button mat-button class="control" (click)="addWorkflow()">
+        Add Workflow
+      </button>
+    </div>
   </mat-card>
   <ng-container *ngIf="editingWorkflow">
     <app-workflow-editor (editing)="isEditing($event)"></app-workflow-editor>

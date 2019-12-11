@@ -1,19 +1,19 @@
-import { environment } from '../../environments/environment';
+import { environment } from "../../environments/environment";
 
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable, OnInit } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 
-import { AuthService } from './auth.service';
+import { AuthService } from "./auth.service";
 
-import { Task } from '../models/task.model';
-import { Workflow } from '../models/workflow.model';
-import { Processor } from '../models/processor.model';
+import { Task } from "../models/task.model";
+import { Workflow } from "../models/workflow.model";
+import { Processor } from "../models/processor.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class TaskManagerService implements OnInit {
   private taskList: Task[];
@@ -28,14 +28,14 @@ export class TaskManagerService implements OnInit {
 
   // api/Tasks
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(environment.apiUrl + 'api/Tasks').pipe(
+    return this.http.get<Task[]>(environment.apiUrl + "api/tasks/").pipe(
       tap(tasks => {
         if (tasks) {
           this.taskList = [...tasks];
         }
       }),
       catchError(err => {
-        console.log('Error getting tasklist: ', err);
+        console.log("Error getting tasklist: ", err);
         return throwError(err);
       })
     );
@@ -70,17 +70,19 @@ export class TaskManagerService implements OnInit {
 
   // api/Workflows
   getWorkflows(): Observable<Workflow[]> {
-    return this.http.get<Workflow[]>(environment.apiUrl + 'api/Workflows').pipe(
-      tap(workflows => {
-        if (workflows) {
-          this.workflows = [...workflows];
-        }
-      }),
-      catchError(err => {
-        console.log('Error getting workflows: ', err);
-        return throwError(err);
-      })
-    );
+    return this.http
+      .get<Workflow[]>(environment.apiUrl + "api/workflows/")
+      .pipe(
+        tap(workflows => {
+          if (workflows) {
+            this.workflows = [...workflows];
+          }
+        }),
+        catchError(err => {
+          console.log("Error getting workflows: ", err);
+          return throwError(err);
+        })
+      );
   }
 
   getWorkflow(id: number): Workflow {
@@ -119,20 +121,22 @@ export class TaskManagerService implements OnInit {
   addWorkflow(workflow: any): Observable<any> {
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.auth.getAuthToken()
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.auth.getAuthToken()
       })
     };
     const newWorkflow = JSON.stringify(workflow);
-    return this.http.post<any>(environment.apiUrl + 'api/Workflows', newWorkflow, options).pipe(
-      tap(() => {
-        console.log('added new workflow');
-      }),
-      catchError(err => {
-        console.log('Error adding new workflow: ', err);
-        return throwError(err);
-      })
-    );
+    return this.http
+      .post<any>(environment.apiUrl + "api/workflows/", newWorkflow, options)
+      .pipe(
+        tap(() => {
+          console.log("added new workflow");
+        }),
+        catchError(err => {
+          console.log("Error adding new workflow: ", err);
+          return throwError(err);
+        })
+      );
   }
 
   // api call
@@ -149,14 +153,14 @@ export class TaskManagerService implements OnInit {
   getProcessors(): Observable<any> {
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + this.auth.getAuthToken()
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.auth.getAuthToken()
       })
     };
-    return this.http.get<any>(environment.apiUrl + 'Processors', options).pipe(
-      tap(response => {
-        if (response) {
-          this.processors = [...response.data.processors];
+    return this.http.get<any>(environment.apiUrl + "api/processors/").pipe(
+      tap(processors => {
+        if (processors) {
+          this.processors = [...processors];
           console.log(this.processors);
         }
       }),
@@ -169,23 +173,25 @@ export class TaskManagerService implements OnInit {
   addProcessor(processorName: string, filePath: string): Observable<any> {
     const options = {
       headers: new HttpHeaders({
-        'Content-Type': 'application',
-        Authorization: 'Bearer ' + this.auth.getAuthToken()
+        "Content-Type": "application",
+        Authorization: "Bearer " + this.auth.getAuthToken()
       })
     };
-    const request = JSON.stringify('test request');
-    return this.http.post<any>(environment.apiUrl + 'Processors', request, options).pipe(
-      tap(response => {
-        if (response) {
-          console.log(response);
-          if (response.data) {
-            this.processors = [...response.data.processors];
+    const request = JSON.stringify("test request");
+    return this.http
+      .post<any>(environment.apiUrl + "api/processors/", request, options)
+      .pipe(
+        tap(response => {
+          if (response) {
+            console.log(response);
+            if (response.data) {
+              this.processors = [...response.data.processors];
+            }
           }
-        }
-      }),
-      catchError(err => {
-        return throwError(err);
-      })
-    );
+        }),
+        catchError(err => {
+          return throwError(err);
+        })
+      );
   }
 }

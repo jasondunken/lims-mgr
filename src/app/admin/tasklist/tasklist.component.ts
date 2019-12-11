@@ -1,34 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 
-import { TaskManagerService } from 'src/app/services/task-manager.service';
+import { TaskManagerService } from "src/app/services/task-manager.service";
 
-import { Task } from 'src/app/models/task.model';
-import { Workflow } from 'src/app/models/workflow.model';
+import { Task } from "src/app/models/task.model";
+import { Workflow } from "src/app/models/workflow.model";
+import { ProcessorsComponent } from "../processors/processors.component";
 
 @Component({
-  selector: 'app-tasklist',
-  templateUrl: './tasklist.component.html',
-  styleUrls: ['./tasklist.component.css']
+  selector: "app-tasklist",
+  templateUrl: "./tasklist.component.html",
+  styleUrls: ["./tasklist.component.css"]
 })
 export class TasklistComponent implements OnInit {
   loadingTasklist: boolean;
   loadingWorkflows: boolean;
   errorMessage: string;
 
-  columnNames = ['task', 'workflow', 'status', 'date'];
-  taskList: Task[] = [];
-  workflows: Workflow[] = [];
+  columnNames = ["task", "workflow", "status", "date"];
+  taskList: Task[];
+  workflows: Workflow[];
 
   constructor(private taskMgr: TaskManagerService, private router: Router) {}
 
   ngOnInit() {
     this.loadingTasklist = true;
     this.loadingWorkflows = true;
-    this.errorMessage = '';
+    this.errorMessage = "";
 
     this.taskMgr.getTasks().subscribe(tasks => {
-      this.taskList = [...tasks];
+      if (tasks && tasks.length > 0) {
+        this.taskList = [...tasks];
+      } else {
+        this.errorMessage = "There are currently no Tasks scheduled";
+      }
       this.loadingTasklist = false;
     });
     this.taskMgr.getWorkflows().subscribe(workflows => {
@@ -38,10 +43,10 @@ export class TasklistComponent implements OnInit {
   }
 
   gotoTaskDetail(id: number) {
-    this.router.navigateByUrl('/tasks/detail/' + id);
+    this.router.navigateByUrl("/tasks/detail/" + id);
   }
 
   gotoWorkflowDetail(name: string) {
-    this.router.navigateByUrl('/workflows/detail-by-name/' + name);
+    this.router.navigateByUrl("/workflows/detail-by-name/" + name);
   }
 }

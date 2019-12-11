@@ -1,45 +1,47 @@
-import { environment } from '../../environments/environment';
+import { environment } from "../../environments/environment";
 
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable, throwError, of } from "rxjs";
+import { timeout, catchError, tap } from "rxjs/operators";
 
-import { User } from '../models/user.model';
+import { User } from "../models/user.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuthService {
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     })
   };
 
   private users: User[] = [];
 
   private authenticated = false;
-  private authToken = '';
+  private authToken = "";
 
   constructor(private http: HttpClient) {}
 
-  // /Users
+  // /Users - returns json: all registered users
   getUsers(): Observable<User[]> {
     const options = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + this.authToken
+        Authorization: "Bearer " + this.authToken
       })
     };
-    return this.http.get<User[]>(environment.apiUrl + 'Users', options).pipe(
+    return this.http.get<User[]>(environment.apiUrl + "api/users/").pipe(
+      timeout(5000),
       tap(users => {
         if (users) {
+          console.log(users);
           this.users = [...users];
         }
       }),
       catchError(err => {
-        console.log('Error getting userlist: ', err);
+        console.log("Error getting userlist: ", err);
         return throwError(err);
       })
     );
@@ -54,7 +56,12 @@ export class AuthService {
   }
 
   // /Users/register
-  registerNewUser(fName: string, lName: string, username: string, password: string): Observable<User> {
+  registerNewUser(
+    fName: string,
+    lName: string,
+    username: string,
+    password: string
+  ): Observable<User> {
     const newUser = {
       FirstName: fName,
       LastName: lName,
@@ -62,15 +69,18 @@ export class AuthService {
       Password: password
     };
     const request = JSON.stringify(newUser);
-    console.log('Registering new user ', request);
-    return this.http.post<any>(environment.apiUrl + 'Users/register', request, this.httpOptions).pipe(
-      tap((response: any) => {
-        console.log('response from Users/register: ' + response);
-      }),
-      catchError(err => {
-        return of({ error: 'falied to register user!' });
-      })
-    );
+    console.log("Registering new user ", request);
+    return this.http
+      .post<any>(environment.apiUrl + "api/users", request, this.httpOptions)
+      .pipe(
+        timeout(5000),
+        tap((response: any) => {
+          console.log("response from Users/register: " + response);
+        }),
+        catchError(err => {
+          return of({ error: "falied to register user!" });
+        })
+      );
   }
 
   // /Users/authenticate
@@ -80,24 +90,32 @@ export class AuthService {
       password
     };
     const request = JSON.stringify(login);
-    console.log('Logging in user ', request);
-    return this.http.post<any>(environment.apiUrl + 'Users/authenticate', request, this.httpOptions).pipe(
-      tap((response: any) => {
-        this.authToken = response.token;
-        if (this.authToken !== null && this.authToken !== 'null' && this.authToken !== undefined && this.authToken !== '') {
-          this.authenticated = true;
-        }
-      }),
-      catchError(err => {
-        return of({ error: 'falied to login user!' });
-      })
-    );
+    console.log("Logging in user ", request);
+    return this.http
+      .post<any>(environment.apiUrl + "api/login", request, this.httpOptions)
+      .pipe(
+        timeout(5000),
+        tap((response: any) => {
+          this.authToken = response.token;
+          if (
+            this.authToken !== null &&
+            this.authToken !== "null" &&
+            this.authToken !== undefined &&
+            this.authToken !== ""
+          ) {
+            this.authenticated = true;
+          }
+        }),
+        catchError(err => {
+          return of({ error: "falied to login user!" });
+        })
+      );
   }
 
   // api call
   logout(): void {
     this.authenticated = false;
-    this.authToken = '';
+    this.authToken = "";
   }
 
   // api call

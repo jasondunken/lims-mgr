@@ -1,26 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
-import { Processor } from 'src/app/models/processor.model';
-import { TaskManagerService } from 'src/app/services/task-manager.service';
+import { Processor } from "src/app/models/processor.model";
+import { TaskManagerService } from "src/app/services/task-manager.service";
 
 @Component({
-  selector: 'app-processors',
-  templateUrl: './processors.component.html',
-  styleUrls: ['./processors.component.css']
+  selector: "app-processors",
+  templateUrl: "./processors.component.html",
+  styleUrls: ["./processors.component.css"]
 })
 export class ProcessorsComponent implements OnInit {
   loadingProcessors: boolean;
   errorMessage: string;
   addingProcessor: boolean;
 
-  columnNames = ['name'];
+  columnNames = ["name"];
   processors: Processor[];
 
   constructor(private fileMgr: TaskManagerService) {}
 
   ngOnInit() {
     this.loadingProcessors = true;
-    this.errorMessage = '';
+    this.errorMessage = "";
     this.addingProcessor = false;
     this.processors = [];
 
@@ -28,7 +28,7 @@ export class ProcessorsComponent implements OnInit {
       if (processors && processors.length > 0) {
         this.processors = [...processors];
       } else {
-        this.errorMessage = 'There are currently no processors installed.';
+        this.errorMessage = "There are currently no Processors installed.";
       }
       this.loadingProcessors = false;
     });
