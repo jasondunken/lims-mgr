@@ -12,8 +12,11 @@
       <mat-form-field>
         <mat-label>Processor</mat-label>
         <mat-select #processor>
-          <mat-option *ngFor="let processor of processors" [value]="processor">
-            {{ processor }}
+          <mat-option
+            *ngFor="let processor of processors"
+            [value]="processor.fields.name"
+          >
+            {{ processor.fields.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -26,12 +29,18 @@
         <input matInput type="text" name="oFilePath" #output />
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Frequency</mat-label>
-        <input matInput type="text" name="frequency" #hz />
+        <mat-label>Interval</mat-label>
+        <input matInput type="text" name="frequency" #interval />
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions class="controls">
-      <button mat-button class="control" (click)="saveWorkflow(name, processor, input, output, hz)">Save</button>
+      <button
+        mat-button
+        class="control"
+        (click)="saveWorkflow(name, processor, input, output, interval)"
+      >
+        Save
+      </button>
       <button mat-button class="control" (click)="cancel()">Cancel</button>
     </mat-card-actions>
   </mat-card>

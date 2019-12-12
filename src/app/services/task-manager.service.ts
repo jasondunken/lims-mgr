@@ -32,6 +32,7 @@ export class TaskManagerService implements OnInit {
       tap(tasks => {
         if (tasks) {
           this.taskList = [...tasks];
+          console.log(tasks);
         }
       }),
       catchError(err => {
@@ -76,6 +77,7 @@ export class TaskManagerService implements OnInit {
         tap(workflows => {
           if (workflows) {
             this.workflows = [...workflows];
+            console.log(workflows);
           }
         }),
         catchError(err => {
