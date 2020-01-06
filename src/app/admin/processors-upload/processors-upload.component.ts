@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 
-import { TaskManagerService } from 'src/app/services/task-manager.service';
+import { TaskManagerService } from "src/app/services/task-manager.service";
 
 @Component({
-  selector: 'app-processors-upload',
-  templateUrl: './processors-upload.component.html',
-  styleUrls: ['./processors-upload.component.css']
+  selector: "app-processors-upload",
+  templateUrl: "./processors-upload.component.html",
+  styleUrls: ["./processors-upload.component.css"]
 })
 export class ProcessorsUploadComponent implements OnInit {
   @Output() addingProcessor = new EventEmitter<boolean>();
@@ -17,7 +17,7 @@ export class ProcessorsUploadComponent implements OnInit {
   ngOnInit() {}
 
   onSelectedFilesChanged($event) {
-    this.selectedFile = '';
+    this.selectedFile = "";
     for (const file of $event) {
       this.selectedFile = file.name;
     }
@@ -26,11 +26,15 @@ export class ProcessorsUploadComponent implements OnInit {
 
   uploadProcessor(nameInput: HTMLInputElement) {
     // add processor to backend
-    if (this.selectedFile !== null && this.selectedFile !== undefined && this.selectedFile !== '') {
+    if (
+      this.selectedFile !== null &&
+      this.selectedFile !== undefined &&
+      this.selectedFile !== ""
+    ) {
       this.taskMgr.addProcessor(nameInput.value, this.selectedFile).subscribe();
       this.addingProcessor.emit(false);
     } else {
-      console.log('No file selected');
+      console.log("No file selected");
     }
   }
 

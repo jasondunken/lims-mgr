@@ -21,7 +21,7 @@ export class AuthService {
   private users: User[] = [];
 
   private authenticated = false;
-  private authToken = "";
+  private authToken = { access: null, refresh: null };
 
   constructor(private http: HttpClient) {}
 
@@ -55,35 +55,37 @@ export class AuthService {
     }
   }
 
-  // /Users/register
+  // POST/auth/users/ - endpoint that allows registration of new users
+  // required params - username, password
   registerNewUser(
-    fName: string,
-    lName: string,
+    first_name: string,
+    last_name: string,
+    email: string,
     username: string,
     password: string
   ): Observable<User> {
     const newUser = {
-      FirstName: fName,
-      LastName: lName,
-      Username: username,
-      Password: password
+      first_name,
+      last_name,
+      email,
+      username,
+      password
     };
-    const request = JSON.stringify(newUser);
-    console.log("Registering new user ", request);
     return this.http
-      .post<any>(environment.apiUrl + "api/users", request, this.httpOptions)
+      .post<any>(environment.apiUrl + "auth/users/", newUser, this.httpOptions)
       .pipe(
         timeout(5000),
         tap((response: any) => {
-          console.log("response from Users/register: " + response);
+          console.log("response from auth/users/: " + response);
         }),
         catchError(err => {
-          return of({ error: "falied to register user!" });
+          return of({ error: err });
         })
       );
   }
 
-  // /Users/authenticate
+  // POST/auth/jwt/create - logs in user and returns access and refresh jwt tokens
+  // params - username, password
   login(username: string, password: string): Observable<any> {
     const login = {
       username,
@@ -92,19 +94,18 @@ export class AuthService {
     const request = JSON.stringify(login);
     console.log("Logging in user ", request);
     return this.http
-      .post<any>(environment.apiUrl + "api/login", request, this.httpOptions)
+      .post<any>(
+        environment.apiUrl + "auth/jwt/create/",
+        request,
+        this.httpOptions
+      )
       .pipe(
         timeout(5000),
         tap((response: any) => {
-          this.authToken = response.token;
-          if (
-            this.authToken !== null &&
-            this.authToken !== "null" &&
-            this.authToken !== undefined &&
-            this.authToken !== ""
-          ) {
-            this.authenticated = true;
-          }
+          console.log(response);
+          this.authToken.access = response.access;
+          this.authToken.refresh = response.refresh;
+          this.authenticated = true;
         }),
         catchError(err => {
           return of({ error: "falied to login user!" });
@@ -115,7 +116,7 @@ export class AuthService {
   // api call
   logout(): void {
     this.authenticated = false;
-    this.authToken = "";
+    this.authToken = { access: null, refresh: null };
   }
 
   // api call
@@ -130,6 +131,6 @@ export class AuthService {
   }
 
   getAuthToken(): string {
-    return this.authToken;
+    return this.authToken.access;
   }
 }

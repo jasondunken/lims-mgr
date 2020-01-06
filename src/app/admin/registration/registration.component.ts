@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from "src/app/services/auth.service";
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.css']
+  selector: "app-registration",
+  templateUrl: "./registration.component.html",
+  styleUrls: ["./registration.component.css"]
 })
 export class RegistrationComponent implements OnInit {
   @Output() registeringUser = new EventEmitter<boolean>();
@@ -16,15 +16,29 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.waitingForResponse = false;
-    this.errorMessage = '';
+    this.errorMessage = "";
   }
 
-  registerUser(fName: HTMLInputElement, lName: HTMLInputElement, username: HTMLInputElement, password: HTMLInputElement) {
+  registerUser(
+    fName: HTMLInputElement,
+    lName: HTMLInputElement,
+    username: HTMLInputElement,
+    email: HTMLInputElement,
+    password: HTMLInputElement
+  ) {
     this.waitingForResponse = true;
-    this.errorMessage = '';
-    this.auth.registerNewUser(fName.value, lName.value, username.value, password.value).subscribe(response => {
-      this.handleRegisterResponse(response);
-    });
+    this.errorMessage = "";
+    this.auth
+      .registerNewUser(
+        fName.value,
+        lName.value,
+        username.value,
+        email.value,
+        password.value
+      )
+      .subscribe(response => {
+        this.handleRegisterResponse(response);
+      });
   }
 
   handleRegisterResponse(response): void {

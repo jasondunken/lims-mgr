@@ -181,7 +181,7 @@ export class TaskManagerService implements OnInit {
     };
     const request = JSON.stringify("test request");
     return this.http
-      .post<any>(environment.apiUrl + "api/processors/", request, options)
+      .post<any>(environment.apiUrl + "api/processors/add", request, options)
       .pipe(
         tap(response => {
           if (response) {
@@ -192,6 +192,7 @@ export class TaskManagerService implements OnInit {
           }
         }),
         catchError(err => {
+          console.log(err);
           return throwError(err);
         })
       );
