@@ -24,6 +24,10 @@ export class WorkflowsComponent implements OnInit {
     this.loadingWorkflows = true;
     this.errorMessage = "";
 
+    this.getWorkflows();
+  }
+
+  getWorkflows() {
     this.taskMgr.getWorkflows().subscribe(workflows => {
       if (workflows && workflows.length > 0) {
         this.workflows = [...workflows];
@@ -44,5 +48,8 @@ export class WorkflowsComponent implements OnInit {
 
   isEditing($event): void {
     this.editingWorkflow = $event;
+    if (!this.editingWorkflow) {
+      this.getWorkflows();
+    }
   }
 }

@@ -4,7 +4,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 import { Observable, throwError } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { catchError, tap, timeout } from "rxjs/operators";
 
 import { AuthService } from "./auth.service";
 
@@ -26,13 +26,13 @@ export class TaskManagerService implements OnInit {
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
-  // api/Tasks
+  // GET/api/tasks - returns all tasks
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(environment.apiUrl + "api/tasks/").pipe(
+    return this.http.get<Task[]>(environment.apiUrl + "tasks/").pipe(
+      timeout(5000),
       tap(tasks => {
         if (tasks) {
           this.taskList = [...tasks];
-          console.log(tasks);
         }
       }),
       catchError(err => {
@@ -69,22 +69,19 @@ export class TaskManagerService implements OnInit {
     // should this populate the add task component to make changes or just directly add the task to the tasklist?
   }
 
-  // api/Workflows
+  // GET/api/workflows - returns all workflows
   getWorkflows(): Observable<Workflow[]> {
-    return this.http
-      .get<Workflow[]>(environment.apiUrl + "api/workflows/")
-      .pipe(
-        tap(workflows => {
-          if (workflows) {
-            this.workflows = [...workflows];
-            console.log(workflows);
-          }
-        }),
-        catchError(err => {
-          console.log("Error getting workflows: ", err);
-          return throwError(err);
-        })
-      );
+    return this.http.get<Workflow[]>(environment.apiUrl + "workflows/").pipe(
+      tap(workflows => {
+        if (workflows) {
+          this.workflows = [...workflows];
+        }
+      }),
+      catchError(err => {
+        console.log("Error getting workflows: ", err);
+        return throwError(err);
+      })
+    );
   }
 
   getWorkflow(id: number): Workflow {
@@ -96,14 +93,15 @@ export class TaskManagerService implements OnInit {
     return {
       id: null,
       name: null,
-      processor: null,
-      inputPath: null,
-      outputPath: null,
-      frequency: null
+      processor_name: null,
+      input_path: null,
+      output_path: null,
+      interval: null
     };
   }
 
   getWorkflowByName(name: string): Workflow {
+    // TODO refresh list from backend data first or implement a data store (<-- this)
     for (const wf of this.workflows) {
       if (wf.name === name) {
         return wf;
@@ -112,14 +110,14 @@ export class TaskManagerService implements OnInit {
     return {
       id: null,
       name: null,
-      processor: null,
-      inputPath: null,
-      outputPath: null,
-      frequency: null
+      processor_name: null,
+      input_path: null,
+      output_path: null,
+      interval: null
     };
   }
 
-  // api/Workflows
+  // POST/api/workflows - adds a workflow to the manager
   addWorkflow(workflow: any): Observable<any> {
     const options = {
       headers: new HttpHeaders({
@@ -129,7 +127,7 @@ export class TaskManagerService implements OnInit {
     };
     const newWorkflow = JSON.stringify(workflow);
     return this.http
-      .post<any>(environment.apiUrl + "api/workflows/", newWorkflow, options)
+      .post<any>(environment.apiUrl + "workflows/", newWorkflow, options)
       .pipe(
         tap(() => {
           console.log("added new workflow");
@@ -151,7 +149,7 @@ export class TaskManagerService implements OnInit {
     // rend request to remove task from tasklist
   }
 
-  // api/Processors
+  // api/processors
   getProcessors(): Observable<any> {
     const options = {
       headers: new HttpHeaders({
@@ -159,11 +157,10 @@ export class TaskManagerService implements OnInit {
         Authorization: "Bearer " + this.auth.getAuthToken()
       })
     };
-    return this.http.get<any>(environment.apiUrl + "api/processors/").pipe(
+    return this.http.get<any>(environment.apiUrl + "processors/").pipe(
       tap(processors => {
         if (processors) {
           this.processors = [...processors];
-          console.log(this.processors);
         }
       }),
       catchError(err => {
@@ -181,7 +178,7 @@ export class TaskManagerService implements OnInit {
     };
     const request = JSON.stringify("test request");
     return this.http
-      .post<any>(environment.apiUrl + "api/processors/add", request, options)
+      .post<any>(environment.apiUrl + "processors/add", request, options)
       .pipe(
         tap(response => {
           if (response) {

@@ -27,7 +27,6 @@ export class WorkflowEditorComponent implements OnInit {
       if (response) {
         if (response && response.length > 0) {
           this.processors = [...response];
-          console.log(this.processors);
         } else {
           this.processors[0] = "There are currently no processors installed";
         }
@@ -39,19 +38,18 @@ export class WorkflowEditorComponent implements OnInit {
 
   saveWorkflow(
     name: HTMLInputElement,
-    processor: HTMLSelectElement,
-    input: HTMLInputElement,
-    output: HTMLInputElement,
-    hz: HTMLInputElement
+    processor_name: HTMLSelectElement,
+    input_path: HTMLInputElement,
+    output_path: HTMLInputElement,
+    interval: HTMLInputElement
   ): void {
     const newWorkflow = {
-      workflowName: name.value,
-      processorType: processor.value,
-      inputPath: input.value,
-      outputPath: output.value,
-      frequency: hz.value
+      name: name.value,
+      processor_name: processor_name.value,
+      input_path: input_path.value,
+      output_path: output_path.value,
+      interval: interval.value
     };
-    console.log("newWorkflow: " + JSON.stringify(newWorkflow));
     this.taskMgr.addWorkflow(newWorkflow).subscribe(() => {
       this.editing.emit(false);
     });

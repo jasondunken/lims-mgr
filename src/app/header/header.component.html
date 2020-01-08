@@ -13,8 +13,7 @@
   <button mat-button class="control" (click)="gotoUsers()">
     Users
   </button>
-  <!-- <span *ngIf="auth.isAuthenticated()"><button mat-button class="control" (click)="logout()">Logout</button></span> -->
-  <button mat-button class="control" (click)="logout()">
-    Logout
-  </button>
+  <span *ngIf="auth.isAuthenticated()"
+    ><button mat-button class="control" (click)="logout()">Logout</button></span
+  >
 </mat-toolbar>

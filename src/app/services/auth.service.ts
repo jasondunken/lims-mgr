@@ -32,11 +32,10 @@ export class AuthService {
         Authorization: "Bearer " + this.authToken
       })
     };
-    return this.http.get<User[]>(environment.apiUrl + "api/users/").pipe(
+    return this.http.get<User[]>(environment.apiUrl + "users/").pipe(
       timeout(5000),
       tap(users => {
         if (users) {
-          console.log(users);
           this.users = [...users];
         }
       }),
@@ -72,7 +71,7 @@ export class AuthService {
       password
     };
     return this.http
-      .post<any>(environment.apiUrl + "auth/users/", newUser, this.httpOptions)
+      .post<any>(environment.authUrl + "users/", newUser, this.httpOptions)
       .pipe(
         timeout(5000),
         tap((response: any) => {
@@ -91,18 +90,11 @@ export class AuthService {
       username,
       password
     };
-    const request = JSON.stringify(login);
-    console.log("Logging in user ", request);
     return this.http
-      .post<any>(
-        environment.apiUrl + "auth/jwt/create/",
-        request,
-        this.httpOptions
-      )
+      .post<any>(environment.authUrl + "jwt/create/", login, this.httpOptions)
       .pipe(
         timeout(5000),
         tap((response: any) => {
-          console.log(response);
           this.authToken.access = response.access;
           this.authToken.refresh = response.refresh;
           this.authenticated = true;
@@ -113,7 +105,6 @@ export class AuthService {
       );
   }
 
-  // api call
   logout(): void {
     this.authenticated = false;
     this.authToken = { access: null, refresh: null };
