@@ -29,10 +29,10 @@ export class AuthService {
   getUsers(): Observable<User[]> {
     const options = {
       headers: new HttpHeaders({
-        Authorization: "Bearer " + this.authToken
+        Authorization: "Bearer " + this.getAuthToken()
       })
     };
-    return this.http.get<User[]>(environment.apiUrl + "users/").pipe(
+    return this.http.get<User[]>(environment.apiUrl + "users/", options).pipe(
       timeout(5000),
       tap(users => {
         if (users) {
@@ -56,6 +56,7 @@ export class AuthService {
 
   // POST/auth/users/ - endpoint that allows registration of new users
   // required params - username, password
+  // No authentication required
   registerNewUser(
     first_name: string,
     last_name: string,
@@ -85,6 +86,7 @@ export class AuthService {
 
   // POST/auth/jwt/create - logs in user and returns access and refresh jwt tokens
   // params - username, password
+  // No authentication required
   login(username: string, password: string): Observable<any> {
     const login = {
       username,
@@ -111,6 +113,7 @@ export class AuthService {
   }
 
   // api call
+  // NOT CURRENTLY IMPLEMENTED
   disableUser(username: string): void {
     // disable an existing user and update userlist
     const user = this.getUserByName(username);
@@ -123,5 +126,9 @@ export class AuthService {
 
   getAuthToken(): string {
     return this.authToken.access;
+  }
+
+  getAuthRefreshToken(): string {
+    return this.authToken.refresh;
   }
 }

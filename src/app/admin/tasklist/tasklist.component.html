@@ -13,7 +13,7 @@
           <th mat-header-cell *matHeaderCellDef>Task ID</th>
           <td mat-cell *matCellDef="let element">
             <button mat-button (click)="gotoTaskDetail(element.taskId)">
-              {{ element.taskId || "unknown" }}
+              {{ element.id || "unknown" }}
             </button>
           </td>
         </ng-container>
@@ -37,7 +37,16 @@
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef>Date</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.date || "unknown" }}
+            {{ element.start_time || "unknown" }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cancel">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-button (click)="cancelTask()">
+              Cancel
+            </button>
           </td>
         </ng-container>
 

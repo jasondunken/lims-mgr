@@ -3,6 +3,7 @@ import { TaskManagerService } from "src/app/services/task-manager.service";
 import { ActivatedRoute } from "@angular/router";
 
 import { Workflow } from "src/app/models/workflow.model";
+import { Processor } from "src/app/models/processor.model";
 
 @Component({
   selector: "app-workflow-editor",
@@ -13,7 +14,7 @@ export class WorkflowEditorComponent implements OnInit {
   @Output() editing = new EventEmitter<boolean>();
 
   workflow: Workflow;
-  processors: string[];
+  processors: Processor[];
 
   constructor(
     private taskMgr: TaskManagerService,
@@ -27,11 +28,7 @@ export class WorkflowEditorComponent implements OnInit {
       if (response) {
         if (response && response.length > 0) {
           this.processors = [...response];
-        } else {
-          this.processors[0] = "There are currently no processors installed";
         }
-      } else {
-        this.processors[0] = "There are currently no processors installed";
       }
     });
   }

@@ -7,23 +7,23 @@
     <ng-container *ngIf="userList && userList.length > 0">
       <table mat-table [dataSource]="userList">
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <th mat-header-cell *matHeaderCellDef>Username</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.fields.username || "unknown" }}
+            {{ element.username || "unknown" }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="date-added">
           <th mat-header-cell *matHeaderCellDef>Date Added</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.fields.date_joined || "unknown" }}
+            {{ element.date_joined || "unknown" }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="date-disabled">
           <th mat-header-cell *matHeaderCellDef>Date Disabled</th>
           <td mat-cell *matCellDef="let element">
-            <span *ngIf="element.dateDisabled">{{ element.dateDisabled }}</span>
+            <span *ngIf="element.dateDisabled">{{ element.isActive }}</span>
             <span *ngIf="!element.dateDisabled">
               <button mat-button (click)="disableUser(element.username)">
                 Disable User

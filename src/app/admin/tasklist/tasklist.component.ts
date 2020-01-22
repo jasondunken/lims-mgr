@@ -17,7 +17,7 @@ export class TasklistComponent implements OnInit {
   loadingWorkflows: boolean;
   errorMessage: string;
 
-  columnNames = ["task", "workflow", "status", "date"];
+  columnNames = ["task", "workflow", "status", "date", "cancel"];
   taskList: Task[];
   workflows: Workflow[];
 
@@ -48,5 +48,9 @@ export class TasklistComponent implements OnInit {
 
   gotoWorkflowDetail(name: string) {
     this.router.navigateByUrl("/workflows/detail-by-name/" + name);
+  }
+
+  cancelTask(): void {
+    console.log("task canceled!");
   }
 }

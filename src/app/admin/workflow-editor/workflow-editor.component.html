@@ -1,8 +1,7 @@
 <div class="centered">
   <mat-card class="task-detail">
     <mat-card-header>
-      <mat-card-title *ngIf="workflow">Edit Workflow</mat-card-title>
-      <mat-card-title *ngIf="!workflow">Add Workflow</mat-card-title>
+      <mat-card-title>Add Workflow</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <mat-form-field>
@@ -14,9 +13,9 @@
         <mat-select #processor>
           <mat-option
             *ngFor="let processor of processors"
-            [value]="processor.fields.name"
+            [value]="processor.name"
           >
-            {{ processor.fields.name }}
+            {{ processor.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>

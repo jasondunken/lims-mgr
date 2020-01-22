@@ -13,7 +13,7 @@ export class ProcessorsComponent implements OnInit {
   errorMessage: string;
   addingProcessor: boolean;
 
-  columnNames = ["name"];
+  columnNames = ["name", "description", "file_type"];
   processors: Processor[];
 
   constructor(private fileMgr: TaskManagerService) {}

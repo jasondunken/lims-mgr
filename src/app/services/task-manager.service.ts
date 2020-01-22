@@ -10,7 +10,6 @@ import { AuthService } from "./auth.service";
 
 import { Task } from "../models/task.model";
 import { Workflow } from "../models/workflow.model";
-import { Processor } from "../models/processor.model";
 
 @Injectable({
   providedIn: "root"
@@ -28,7 +27,13 @@ export class TaskManagerService implements OnInit {
 
   // GET/api/tasks - returns all tasks
   getTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(environment.apiUrl + "tasks/").pipe(
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + this.auth.getAuthToken()
+      })
+    };
+
+    return this.http.get<Task[]>(environment.apiUrl + "tasks/", options).pipe(
       timeout(5000),
       tap(tasks => {
         if (tasks) {
@@ -64,24 +69,27 @@ export class TaskManagerService implements OnInit {
     // remove task from tasklist
   }
 
-  // api call - adds a previous task to the queue
-  rescheduleTask(id: number): void {
-    // should this populate the add task component to make changes or just directly add the task to the tasklist?
-  }
-
   // GET/api/workflows - returns all workflows
   getWorkflows(): Observable<Workflow[]> {
-    return this.http.get<Workflow[]>(environment.apiUrl + "workflows/").pipe(
-      tap(workflows => {
-        if (workflows) {
-          this.workflows = [...workflows];
-        }
-      }),
-      catchError(err => {
-        console.log("Error getting workflows: ", err);
-        return throwError(err);
+    const options = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + this.auth.getAuthToken()
       })
-    );
+    };
+    return this.http
+      .get<Workflow[]>(environment.apiUrl + "workflows/", options)
+      .pipe(
+        timeout(5000),
+        tap(workflows => {
+          if (workflows) {
+            this.workflows = [...workflows];
+          }
+        }),
+        catchError(err => {
+          console.log("Error getting workflows: ", err);
+          return throwError(err);
+        })
+      );
   }
 
   getWorkflow(id: number): Workflow {
@@ -129,6 +137,7 @@ export class TaskManagerService implements OnInit {
     return this.http
       .post<any>(environment.apiUrl + "workflows/", newWorkflow, options)
       .pipe(
+        timeout(5000),
         tap(() => {
           console.log("added new workflow");
         }),
@@ -157,7 +166,8 @@ export class TaskManagerService implements OnInit {
         Authorization: "Bearer " + this.auth.getAuthToken()
       })
     };
-    return this.http.get<any>(environment.apiUrl + "processors/").pipe(
+    return this.http.get<any>(environment.apiUrl + "processors/", options).pipe(
+      timeout(5000),
       tap(processors => {
         if (processors) {
           this.processors = [...processors];
@@ -180,6 +190,7 @@ export class TaskManagerService implements OnInit {
     return this.http
       .post<any>(environment.apiUrl + "processors/add", request, options)
       .pipe(
+        timeout(5000),
         tap(response => {
           if (response) {
             console.log(response);
