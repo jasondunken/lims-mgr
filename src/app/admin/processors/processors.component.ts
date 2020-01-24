@@ -1,7 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { Processor } from "src/app/models/processor.model";
 import { TaskManagerService } from "src/app/services/task-manager.service";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
 
 @Component({
   selector: "app-processors",
@@ -15,9 +17,11 @@ export class ProcessorsComponent implements OnInit {
 
   columnNames = ["name", "description", "file_type"];
   processors: Processor[];
+  sortableData = new MatTableDataSource();
 
   constructor(private fileMgr: TaskManagerService) {}
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
     this.loadingProcessors = true;
     this.errorMessage = "";
@@ -27,6 +31,8 @@ export class ProcessorsComponent implements OnInit {
     this.fileMgr.getProcessors().subscribe(processors => {
       if (processors && processors.length > 0) {
         this.processors = [...processors];
+        this.sortableData.data = [...this.processors];
+        this.sortableData.sort = this.sort;
       } else {
         this.errorMessage = "There are currently no Processors installed.";
       }

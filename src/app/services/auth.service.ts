@@ -29,7 +29,8 @@ export class AuthService {
   getUsers(): Observable<User[]> {
     const options = {
       headers: new HttpHeaders({
-        Authorization: "Bearer " + this.getAuthToken()
+        Authorization: "Bearer " + this.getAuthToken(),
+        "Content-Type": "application/json"
       })
     };
     return this.http.get<User[]>(environment.apiUrl + "users/", options).pipe(

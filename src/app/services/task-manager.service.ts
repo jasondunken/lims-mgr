@@ -29,7 +29,8 @@ export class TaskManagerService implements OnInit {
   getTasks(): Observable<Task[]> {
     const options = {
       headers: new HttpHeaders({
-        Authorization: "Bearer " + this.auth.getAuthToken()
+        Authorization: "Bearer " + this.auth.getAuthToken(),
+        "Content-Type": "application/json"
       })
     };
 
@@ -73,7 +74,8 @@ export class TaskManagerService implements OnInit {
   getWorkflows(): Observable<Workflow[]> {
     const options = {
       headers: new HttpHeaders({
-        Authorization: "Bearer " + this.auth.getAuthToken()
+        Authorization: "Bearer " + this.auth.getAuthToken(),
+        "Content-Type": "application/json"
       })
     };
     return this.http
@@ -129,8 +131,8 @@ export class TaskManagerService implements OnInit {
   addWorkflow(workflow: any): Observable<any> {
     const options = {
       headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.auth.getAuthToken()
+        Authorization: "Bearer " + this.auth.getAuthToken(),
+        "Content-Type": "application/json"
       })
     };
     const newWorkflow = JSON.stringify(workflow);
@@ -162,8 +164,8 @@ export class TaskManagerService implements OnInit {
   getProcessors(): Observable<any> {
     const options = {
       headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + this.auth.getAuthToken()
+        Authorization: "Bearer " + this.auth.getAuthToken(),
+        "Content-Type": "application/json"
       })
     };
     return this.http.get<any>(environment.apiUrl + "processors/", options).pipe(
@@ -182,8 +184,8 @@ export class TaskManagerService implements OnInit {
   addProcessor(processorName: string, filePath: string): Observable<any> {
     const options = {
       headers: new HttpHeaders({
-        "Content-Type": "application",
-        Authorization: "Bearer " + this.auth.getAuthToken()
+        Authorization: "Bearer " + this.auth.getAuthToken(),
+        "Content-Type": "application/json"
       })
     };
     const request = JSON.stringify("test request");

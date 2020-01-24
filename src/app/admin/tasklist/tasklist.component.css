@@ -18,6 +18,10 @@ td.mat-cell {
   word-break: break-word;
 }
 
+th.mat-sort-header-sorted {
+  color: black;
+}
+
 .mat-column-task {
   flex: 0 0 10%;
   width: 10%;

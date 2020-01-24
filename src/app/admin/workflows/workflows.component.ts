@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
 
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+
 import { TaskManagerService } from "../../services/task-manager.service";
 import { Workflow } from "../../models/workflow.model";
 
@@ -15,11 +18,13 @@ export class WorkflowsComponent implements OnInit {
 
   columnNames = ["name", "processor", "input-path", "output-path", "frequency"];
   workflows: Workflow[];
+  sortableData = new MatTableDataSource();
 
   editingWorkflow = false;
 
   constructor(private taskMgr: TaskManagerService, private router: Router) {}
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
     this.loadingWorkflows = true;
     this.errorMessage = "";
@@ -31,6 +36,8 @@ export class WorkflowsComponent implements OnInit {
     this.taskMgr.getWorkflows().subscribe(workflows => {
       if (workflows && workflows.length > 0) {
         this.workflows = [...workflows];
+        this.sortableData.data = [...this.workflows];
+        this.sortableData.sort = this.sort;
       } else {
         this.errorMessage = "There are currently no Workflows available";
       }
