@@ -33,7 +33,7 @@ export class AuthService {
         "Content-Type": "application/json"
       })
     };
-    return this.http.get<User[]>(environment.apiUrl + "users/", options).pipe(
+    return this.http.get<User[]>(environment.authUrl, options).pipe(
       timeout(5000),
       tap(users => {
         if (users) {
@@ -69,23 +69,27 @@ export class AuthService {
       first_name,
       last_name,
       email,
-      username,
-      password
+      Username: username,
+      Password: password
     };
     return this.http
-      .post<any>(environment.authUrl + "users/", newUser, this.httpOptions)
+      .post<any>(
+        "http://127.0.0.1:59070/users/register/",
+        newUser,
+        this.httpOptions
+      )
       .pipe(
         timeout(5000),
         tap((response: any) => {
-          console.log("response from auth/users/: " + response);
+          console.log("response from users/register: " + response);
         }),
         catchError(err => {
-          return of({ error: err });
+          return of({ error: "failed to register user!" });
         })
       );
   }
 
-  // POST/auth/jwt/create - logs in user and returns access and refresh jwt tokens
+  // POST/users/authenticate - logs in user and returns access and refresh jwt tokens
   // params - username, password
   // No authentication required
   login(username: string, password: string): Observable<any> {
@@ -94,7 +98,7 @@ export class AuthService {
       password
     };
     return this.http
-      .post<any>(environment.authUrl + "jwt/create/", login, this.httpOptions)
+      .post<any>(environment.authUrl + "authenticate/", login, this.httpOptions)
       .pipe(
         timeout(5000),
         tap((response: any) => {

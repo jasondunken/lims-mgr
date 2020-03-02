@@ -70,7 +70,7 @@ export class TaskManagerService implements OnInit {
     // remove task from tasklist
   }
 
-  // GET/api/workflows - returns all workflows
+  // GET/api/workflow - returns all workflows
   getWorkflows(): Observable<Workflow[]> {
     const options = {
       headers: new HttpHeaders({
@@ -79,7 +79,7 @@ export class TaskManagerService implements OnInit {
       })
     };
     return this.http
-      .get<Workflow[]>(environment.apiUrl + "workflows/", options)
+      .get<Workflow[]>(environment.apiUrl + "workflow/", options)
       .pipe(
         timeout(5000),
         tap(workflows => {
@@ -137,7 +137,7 @@ export class TaskManagerService implements OnInit {
     };
     const newWorkflow = JSON.stringify(workflow);
     return this.http
-      .post<any>(environment.apiUrl + "workflows/", newWorkflow, options)
+      .post<any>(environment.apiUrl + "workflow/", newWorkflow, options)
       .pipe(
         timeout(5000),
         tap(() => {
@@ -181,6 +181,7 @@ export class TaskManagerService implements OnInit {
     );
   }
 
+  // THIS ENDPOINT IS LIKELY TO BE REMOVED AND HANDLED IN DASHBOARD
   addProcessor(processorName: string, filePath: string): Observable<any> {
     const options = {
       headers: new HttpHeaders({
@@ -190,7 +191,7 @@ export class TaskManagerService implements OnInit {
     };
     const request = JSON.stringify("test request");
     return this.http
-      .post<any>(environment.apiUrl + "processors/add", request, options)
+      .post<any>(environment.apiUrl + "processors/", request, options)
       .pipe(
         timeout(5000),
         tap(response => {
