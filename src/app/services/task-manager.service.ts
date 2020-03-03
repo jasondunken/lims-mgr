@@ -23,7 +23,7 @@ export class TaskManagerService implements OnInit {
     this.getWorkflows().subscribe();
   }
 
-  constructor(private http: HttpClient, private auth: AuthService) {}
+  constructor(private http: HttpClient, private auth: AuthService) { }
 
   // GET/api/tasks - returns all tasks
   getTasks(): Observable<Task[]> {
@@ -79,7 +79,7 @@ export class TaskManagerService implements OnInit {
       })
     };
     return this.http
-      .get<Workflow[]>(environment.apiUrl + "workflow/", options)
+      .get<Workflow[]>(environment.apiUrl + "workflows/", options)
       .pipe(
         timeout(5000),
         tap(workflows => {
@@ -137,7 +137,7 @@ export class TaskManagerService implements OnInit {
     };
     const newWorkflow = JSON.stringify(workflow);
     return this.http
-      .post<any>(environment.apiUrl + "workflow/", newWorkflow, options)
+      .post<any>(environment.apiUrl + "workflows/", newWorkflow, options)
       .pipe(
         timeout(5000),
         tap(() => {

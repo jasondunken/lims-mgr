@@ -23,7 +23,7 @@ export class AuthService {
   private authenticated = false;
   private authToken = { access: null, refresh: null };
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // /Users - returns json: all registered users
   getUsers(): Observable<User[]> {
@@ -69,12 +69,12 @@ export class AuthService {
       first_name,
       last_name,
       email,
-      Username: username,
-      Password: password
+      username,
+      password
     };
     return this.http
       .post<any>(
-        "http://127.0.0.1:59070/users/register/",
+        environment.authUrl + "register/",
         newUser,
         this.httpOptions
       )
@@ -102,7 +102,8 @@ export class AuthService {
       .pipe(
         timeout(5000),
         tap((response: any) => {
-          this.authToken.access = response.access;
+          console.log(response);
+          this.authToken.access = response.token;
           this.authToken.refresh = response.refresh;
           this.authenticated = true;
         }),
