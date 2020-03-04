@@ -51,6 +51,8 @@ export class RegistrationComponent implements OnInit {
         console.log(response);
         this.cancel();
       }
+    } else {
+      this.cancel();
     }
   }
 
