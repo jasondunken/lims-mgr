@@ -12,7 +12,7 @@ import { MatTableDataSource } from "@angular/material/table";
 })
 export class ProcessorsComponent implements OnInit {
   loadingProcessors: boolean;
-  errorMessage: string;
+  statusMessage: string;
   addingProcessor: boolean;
 
   columnNames = ["name", "description", "file_type"];
@@ -24,27 +24,25 @@ export class ProcessorsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
     this.loadingProcessors = true;
-    this.errorMessage = "";
-    this.addingProcessor = false;
+    this.statusMessage = "";
     this.processors = [];
 
-    this.fileMgr.getProcessors().subscribe(processors => {
-      if (processors && processors.length > 0) {
-        this.processors = [...processors];
-        this.sortableData.data = [...this.processors];
-        this.sortableData.sort = this.sort;
-      } else {
-        this.errorMessage = "There are currently no Processors installed.";
+    this.fileMgr.getProcessors().subscribe(
+      processors => {
+        if (processors && processors.length > 0) {
+          this.processors = [...processors];
+          this.sortableData.data = [...this.processors];
+          this.sortableData.sort = this.sort;
+        } else {
+          this.statusMessage = "There are currently no Processors installed.";
+        }
+      },
+      err => {
+        console.log(err);
+      },
+      () => {
+        this.loadingProcessors = false;
       }
-      this.loadingProcessors = false;
-    });
-  }
-
-  addProcessor() {
-    this.addingProcessor = true;
-  }
-
-  isAdding($event) {
-    this.addingProcessor = $event;
+    );
   }
 }

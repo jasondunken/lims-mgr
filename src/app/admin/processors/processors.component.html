@@ -3,7 +3,6 @@
     <mat-card-header>
       <h2>Processors</h2>
     </mat-card-header>
-
     <table mat-table [dataSource]="sortableData" matSort>
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
@@ -31,18 +30,8 @@
     <ng-container *ngIf="loadingProcessors"
       ><mat-spinner></mat-spinner
     ></ng-container>
-    <ng-container *ngIf="errorMessage">
-      <div class="errorMessage">{{ errorMessage }}</div>
+    <ng-container *ngIf="statusMessage.length > 0">
+      <div class="statusMessage">{{ statusMessage }}</div>
     </ng-container>
-    <div class="controls">
-      <button mat-button class="control" (click)="addProcessor()">
-        Add Processor
-      </button>
-    </div>
   </mat-card>
-  <ng-container *ngIf="addingProcessor">
-    <app-processors-upload
-      (addingProcessor)="isAdding($event)"
-    ></app-processors-upload>
-  </ng-container>
 </div>

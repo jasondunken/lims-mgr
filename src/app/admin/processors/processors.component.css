@@ -72,7 +72,7 @@ td.mat-cell {
   margin: 15px auto;
 }
 
-.errorMessage {
+.statusMessage {
   margin-bottom: 10px;
   text-align: center;
 }
