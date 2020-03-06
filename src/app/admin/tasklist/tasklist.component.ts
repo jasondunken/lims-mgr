@@ -17,7 +17,7 @@ import { Workflow } from "src/app/models/workflow.model";
 export class TasklistComponent implements OnInit {
   loadingTasklist: boolean;
   loadingWorkflows: boolean;
-  errorMessage: string;
+  statusMessage: string;
 
   columnNames = ["task", "workflow", "status", "date", "cancel"];
   taskList: Task[];
@@ -30,30 +30,42 @@ export class TasklistComponent implements OnInit {
   ngOnInit() {
     this.loadingTasklist = true;
     this.loadingWorkflows = true;
-    this.errorMessage = "";
+    this.statusMessage = "";
 
     this.taskMgr.getTasks().subscribe(
       tasks => {
-        if (tasks && tasks.length > 0) {
-          this.taskList = [...tasks];
-          this.sortableData.data = [...this.taskList];
-          this.sortableData.sort = this.sort;
+        if (tasks.error) {
+          this.statusMessage = tasks.error;
         } else {
-          this.errorMessage = "There are currently no Tasks scheduled";
+          if (tasks && tasks.length > 0) {
+            this.taskList = [...tasks];
+            this.sortableData.data = [...this.taskList];
+            this.sortableData.sort = this.sort;
+          } else {
+            this.statusMessage = "There are currently no Tasks scheduled";
+          }
         }
-        this.loadingTasklist = false;
       },
       err => {
-        console.log(err);
+        this.statusMessage = "Error retrieving data";
+      },
+      () => {
+        this.loadingTasklist = false;
       }
     );
     this.taskMgr.getWorkflows().subscribe(
       workflows => {
-        this.workflows = [...workflows];
-        this.loadingWorkflows = false;
+        if (workflows.error) {
+          console.log(workflows.error);
+        } else {
+          this.workflows = [...workflows];
+        }
       },
       err => {
         console.log(err);
+      },
+      () => {
+        this.loadingWorkflows = false;
       }
     );
   }

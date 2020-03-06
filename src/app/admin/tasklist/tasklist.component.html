@@ -53,8 +53,8 @@
     <ng-container *ngIf="loadingTasklist || loadingWorkflows"
       ><mat-spinner></mat-spinner
     ></ng-container>
-    <ng-container *ngIf="errorMessage">
-      <div class="errorMessage">{{ errorMessage }}</div>
+    <ng-container *ngIf="statusMessage">
+      <div class="statusMessage">{{ statusMessage }}</div>
     </ng-container>
     <mat-card-actions> </mat-card-actions>
   </mat-card>

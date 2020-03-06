@@ -35,7 +35,6 @@ import { RegistrationComponent } from "./admin/registration/registration.compone
 import { AuthService } from "./services/auth.service";
 import { AuthEffects } from "./store/effects/auth.effects";
 import { ProcessorsComponent } from "./admin/processors/processors.component";
-import { ProcessorsUploadComponent } from "./admin/processors-upload/processors-upload.component";
 
 @NgModule({
   declarations: [
@@ -51,8 +50,7 @@ import { ProcessorsUploadComponent } from "./admin/processors-upload/processors-
     UserEditorComponent,
     WorkflowDetailComponent,
     RegistrationComponent,
-    ProcessorsComponent,
-    ProcessorsUploadComponent
+    ProcessorsComponent
   ],
   imports: [
     BrowserModule,

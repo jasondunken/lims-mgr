@@ -21,12 +21,18 @@
       </div>
 
       <div class="controls">
-        <div class="errorMessage">{{ errorMessage }}</div>
+        <div class="statusMessage">{{ errorMessage }}</div>
         <ng-container *ngIf="!loggingIn">
-          <button mat-button class="control" (click)="login(username, password)">
+          <button
+            mat-button
+            class="control"
+            (click)="login(username, password)"
+          >
             Login
           </button>
-          <button mat-button class="control" (click)="register()">Register</button>
+          <button mat-button class="control" (click)="register()">
+            Register
+          </button>
         </ng-container>
 
         <ng-container *ngIf="loggingIn">
@@ -39,6 +45,8 @@
   </mat-card>
 
   <ng-container *ngIf="registeringUser">
-    <app-registration (registeringUser)="isRegistering($event)"></app-registration>
+    <app-registration
+      (registeringUser)="isRegistering($event)"
+    ></app-registration>
   </ng-container>
 </div>

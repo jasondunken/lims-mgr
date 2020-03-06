@@ -26,7 +26,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   // /Users - returns json: all registered users
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + this.getAuthToken(),
@@ -41,8 +41,7 @@ export class AuthService {
         }
       }),
       catchError(err => {
-        console.log("Error getting userlist: ", err);
-        return throwError(err);
+        return of({ error: "failed to retrieve users!" });
       })
     );
   }
@@ -118,7 +117,7 @@ export class AuthService {
   disableUser(username: string): void {
     // disable an existing user and update userlist
     const user = this.getUserByName(username);
-    user.dateDisabled = Date.now().toString();
+    user.enabled = false;
   }
 
   isAuthenticated(): boolean {

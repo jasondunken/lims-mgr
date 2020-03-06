@@ -62,7 +62,7 @@ th.mat-sort-header-sorted {
   margin: 15px auto;
 }
 
-.errorMessage {
-  margin-bottom: 10px;
+.statusMessage {
+  margin-top: 1em;
   text-align: center;
 }

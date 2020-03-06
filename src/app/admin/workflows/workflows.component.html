@@ -52,8 +52,8 @@
     <ng-container *ngIf="loadingWorkflows"
       ><mat-spinner></mat-spinner
     ></ng-container>
-    <ng-container *ngIf="errorMessage">
-      <div class="errorMessage">{{ errorMessage }}</div>
+    <ng-container *ngIf="statusMessage">
+      <div class="statusMessage">{{ statusMessage }}</div>
     </ng-container>
 
     <div class="controls">

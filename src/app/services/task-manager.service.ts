@@ -3,7 +3,7 @@ import { environment } from "../../environments/environment";
 import { Injectable, OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-import { Observable, throwError } from "rxjs";
+import { Observable, throwError, of } from "rxjs";
 import { catchError, tap, timeout } from "rxjs/operators";
 
 import { AuthService } from "./auth.service";
@@ -23,10 +23,10 @@ export class TaskManagerService implements OnInit {
     this.getWorkflows().subscribe();
   }
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   // GET/api/tasks - returns all tasks
-  getTasks(): Observable<Task[]> {
+  getTasks(): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + this.auth.getAuthToken(),
@@ -34,7 +34,7 @@ export class TaskManagerService implements OnInit {
       })
     };
 
-    return this.http.get<Task[]>(environment.apiUrl + "tasks/", options).pipe(
+    return this.http.get<any>(environment.apiUrl + "tasks/", options).pipe(
       timeout(5000),
       tap(tasks => {
         if (tasks) {
@@ -42,8 +42,7 @@ export class TaskManagerService implements OnInit {
         }
       }),
       catchError(err => {
-        console.log("Error getting tasklist: ", err);
-        return throwError(err);
+        return of({ error: "failed to retrieve tasks!" });
       })
     );
   }
@@ -71,27 +70,24 @@ export class TaskManagerService implements OnInit {
   }
 
   // GET/api/workflow - returns all workflows
-  getWorkflows(): Observable<Workflow[]> {
+  getWorkflows(): Observable<any> {
     const options = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + this.auth.getAuthToken(),
         "Content-Type": "application/json"
       })
     };
-    return this.http
-      .get<Workflow[]>(environment.apiUrl + "workflows/", options)
-      .pipe(
-        timeout(5000),
-        tap(workflows => {
-          if (workflows) {
-            this.workflows = [...workflows];
-          }
-        }),
-        catchError(err => {
-          console.log("Error getting workflows: ", err);
-          return throwError(err);
-        })
-      );
+    return this.http.get<any>(environment.apiUrl + "workflows/", options).pipe(
+      timeout(5000),
+      tap(workflows => {
+        if (workflows) {
+          this.workflows = [...workflows];
+        }
+      }),
+      catchError(err => {
+        return of({ error: "failed to retrieve workflows!" });
+      })
+    );
   }
 
   getWorkflow(id: number): Workflow {
@@ -144,8 +140,7 @@ export class TaskManagerService implements OnInit {
           console.log("added new workflow");
         }),
         catchError(err => {
-          console.log("Error adding new workflow: ", err);
-          return throwError(err);
+          return of({ error: "failed to add workflow!" });
         })
       );
   }
@@ -176,36 +171,8 @@ export class TaskManagerService implements OnInit {
         }
       }),
       catchError(err => {
-        return throwError(err);
+        return of({ error: "failed to retrieve processors!" });
       })
     );
-  }
-
-  // THIS ENDPOINT IS LIKELY TO BE REMOVED AND HANDLED IN DASHBOARD
-  addProcessor(processorName: string, filePath: string): Observable<any> {
-    const options = {
-      headers: new HttpHeaders({
-        Authorization: "Bearer " + this.auth.getAuthToken(),
-        "Content-Type": "application/json"
-      })
-    };
-    const request = JSON.stringify("test request");
-    return this.http
-      .post<any>(environment.apiUrl + "processors/", request, options)
-      .pipe(
-        timeout(5000),
-        tap(response => {
-          if (response) {
-            console.log(response);
-            if (response.data) {
-              this.processors = [...response.data.processors];
-            }
-          }
-        }),
-        catchError(err => {
-          console.log(err);
-          return throwError(err);
-        })
-      );
   }
 }

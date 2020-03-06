@@ -29,16 +29,20 @@ export class ProcessorsComponent implements OnInit {
 
     this.fileMgr.getProcessors().subscribe(
       processors => {
-        if (processors && processors.length > 0) {
-          this.processors = [...processors];
-          this.sortableData.data = [...this.processors];
-          this.sortableData.sort = this.sort;
+        if (processors.error) {
+          this.statusMessage = processors.error;
         } else {
-          this.statusMessage = "There are currently no Processors installed.";
+          if (processors && processors.length > 0) {
+            this.processors = [...processors];
+            this.sortableData.data = [...this.processors];
+            this.sortableData.sort = this.sort;
+          } else {
+            this.statusMessage = "There are currently no Processors installed";
+          }
         }
       },
       err => {
-        console.log(err);
+        this.statusMessage = "Error retrieving data";
       },
       () => {
         this.loadingProcessors = false;

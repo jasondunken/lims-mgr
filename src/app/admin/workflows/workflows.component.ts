@@ -14,7 +14,7 @@ import { Workflow } from "../../models/workflow.model";
 })
 export class WorkflowsComponent implements OnInit {
   loadingWorkflows: boolean;
-  errorMessage: string;
+  statusMessage: string;
 
   columnNames = ["name", "processor", "input-path", "output-path", "frequency"];
   workflows: Workflow[];
@@ -27,22 +27,33 @@ export class WorkflowsComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   ngOnInit() {
     this.loadingWorkflows = true;
-    this.errorMessage = "";
+    this.statusMessage = "";
 
     this.getWorkflows();
   }
 
   getWorkflows() {
-    this.taskMgr.getWorkflows().subscribe(workflows => {
-      if (workflows && workflows.length > 0) {
-        this.workflows = [...workflows];
-        this.sortableData.data = [...this.workflows];
-        this.sortableData.sort = this.sort;
-      } else {
-        this.errorMessage = "There are currently no Workflows available";
+    this.taskMgr.getWorkflows().subscribe(
+      workflows => {
+        if (workflows.error) {
+          this.statusMessage = workflows.error;
+        } else {
+          if (workflows && workflows.length > 0) {
+            this.workflows = [...workflows];
+            this.sortableData.data = [...this.workflows];
+            this.sortableData.sort = this.sort;
+          } else {
+            this.statusMessage = "There are currently no Workflows available";
+          }
+        }
+      },
+      err => {
+        this.statusMessage = "Error retrieving data";
+      },
+      () => {
+        this.loadingWorkflows = false;
       }
-      this.loadingWorkflows = false;
-    });
+    );
   }
 
   gotoWorkflowDetail(name: string) {

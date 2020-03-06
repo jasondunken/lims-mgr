@@ -14,9 +14,10 @@ import { User } from "src/app/models/user.model";
 export class UsersComponent implements OnInit {
   loadingUsers: boolean;
   editingUser = false;
+  statusMessage = "";
 
   columnNames = ["username", "date-added", "date-disabled"];
-  userList: User[];
+  users: User[];
   sortableData = new MatTableDataSource();
 
   constructor(private auth: AuthService) {}
@@ -26,13 +27,23 @@ export class UsersComponent implements OnInit {
     this.loadingUsers = true;
     this.auth.getUsers().subscribe(
       users => {
-        this.userList = [...users];
-        this.sortableData.data = [...this.userList];
-        this.sortableData.sort = this.sort;
-        this.loadingUsers = false;
+        if (users.error) {
+          this.statusMessage = users.error;
+        } else {
+          if (users && users.length > 0) {
+            this.users = [...users];
+            this.sortableData.data = [...this.users];
+            this.sortableData.sort = this.sort;
+          } else {
+            this.statusMessage = "There are currently no users registered";
+          }
+        }
       },
       err => {
-        console.log(err);
+        this.statusMessage = "Error retrieving data";
+      },
+      () => {
+        this.loadingUsers = false;
       }
     );
   }
