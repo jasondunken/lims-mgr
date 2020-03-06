@@ -11,12 +11,17 @@
       <mat-form-field>
         <mat-label>Processor</mat-label>
         <mat-select #processor>
-          <mat-option
-            *ngFor="let processor of processors"
-            [value]="processor.name"
-          >
-            {{ processor.name }}
-          </mat-option>
+          <ng-container *ngIf="processors.length > 0; else noProcessors">
+            <mat-option
+              *ngFor="let processor of processors"
+              [value]="processor.name"
+            >
+              {{ processor.name }}
+            </mat-option>
+          </ng-container>
+          <ng-template #noProcessors>
+            <mat-option value="null">No processors installed</mat-option>
+          </ng-template>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
@@ -31,6 +36,9 @@
         <mat-label>Interval</mat-label>
         <input matInput type="text" name="frequency" #interval />
       </mat-form-field>
+      <ng-container *ngIf="statusMessage">
+        <div class="statusMessage">{{ statusMessage }}</div>
+      </ng-container>
     </mat-card-content>
     <mat-card-actions class="controls">
       <button

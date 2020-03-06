@@ -32,3 +32,8 @@
 .mat-form-field {
   margin: 10px;
 }
+
+.statusMessage {
+  margin-top: 1em;
+  text-align: center;
+}

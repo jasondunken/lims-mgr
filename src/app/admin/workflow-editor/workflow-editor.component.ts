@@ -14,7 +14,8 @@ export class WorkflowEditorComponent implements OnInit {
   @Output() editing = new EventEmitter<boolean>();
 
   workflow: Workflow;
-  processors: Processor[];
+  processors = [];
+  statusMessage = "";
 
   constructor(
     private taskMgr: TaskManagerService,
@@ -25,9 +26,13 @@ export class WorkflowEditorComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get("id");
     this.workflow = this.taskMgr.getWorkflow(id);
     this.taskMgr.getProcessors().subscribe(response => {
-      if (response) {
+      if (response.error) {
+        this.statusMessage = "No processors installed";
+      } else {
         if (response && response.length > 0) {
           this.processors = [...response];
+        } else {
+          this.statusMessage = "No processors installed";
         }
       }
     });
@@ -40,6 +45,10 @@ export class WorkflowEditorComponent implements OnInit {
     output_path: HTMLInputElement,
     interval: HTMLInputElement
   ): void {
+    if (processor_name.value === "null" || processor_name.value === undefined) {
+      this.statusMessage = "Workflows must include a valid processor";
+      return;
+    }
     const newWorkflow = {
       name: name.value,
       processor_name: processor_name.value,
