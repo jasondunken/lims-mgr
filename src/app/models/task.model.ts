@@ -1,11 +1,12 @@
-import { User } from './user.model';
+import { User } from "./user.model";
 
 export interface Task {
-  taskId: number;
-  date: string;
+  id: string;
+  taskID: string;
+  start: string;
   filePath: string;
   processor: string;
-  workflow: string;
+  workflowID: string;
   status: string;
   error: string;
 }

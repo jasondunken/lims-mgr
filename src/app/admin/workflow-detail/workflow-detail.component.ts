@@ -19,9 +19,9 @@ export class WorkflowDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const name = this.route.snapshot.paramMap.get("name");
-    if (name) {
-      this.workflow = this.taskMgr.getWorkflowByName(name);
+    const id = this.route.snapshot.paramMap.get("id");
+    if (id) {
+      this.workflow = this.taskMgr.getWorkflow(id);
     }
   }
 

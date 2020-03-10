@@ -23,7 +23,7 @@ export class WorkflowEditorComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const id = +this.route.snapshot.paramMap.get("id");
+    const id = this.route.snapshot.paramMap.get("id");
     this.workflow = this.taskMgr.getWorkflow(id);
     this.taskMgr.getProcessors().subscribe(response => {
       if (response.error) {

@@ -74,8 +74,20 @@ export class TasklistComponent implements OnInit {
     this.router.navigateByUrl("/tasks/detail/" + id);
   }
 
-  gotoWorkflowDetail(name: string) {
-    this.router.navigateByUrl("/workflows/detail-by-name/" + name);
+  gotoWorkflowDetail(id: string) {
+    this.router.navigateByUrl("/workflows/detail/" + id);
+  }
+
+  getWorkflowName(id: string) {
+    return this.taskMgr.getWorkflow(id).name;
+  }
+
+  getFormattedDate(date) {
+    const _date = new Date(date);
+    const hours = _date.getHours();
+    const mins = _date.getMinutes();
+    const secs = _date.getSeconds();
+    return `${hours}:${mins}:${secs} ${_date.toDateString()}`;
   }
 
   cancelTask(): void {

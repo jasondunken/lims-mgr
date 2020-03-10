@@ -1,5 +1,5 @@
 export interface Workflow {
-  id: number;
+  id: string;
   name: string;
   processor_name: string;
   input_path: string;

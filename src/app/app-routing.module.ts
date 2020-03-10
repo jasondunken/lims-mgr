@@ -15,10 +15,6 @@ const routes: Routes = [
   { path: "users", component: UsersComponent },
   { path: "workflows", component: WorkflowsComponent },
   { path: "workflows/detail/:id", component: WorkflowDetailComponent },
-  {
-    path: "workflows/detail-by-name/:name",
-    component: WorkflowDetailComponent
-  },
   { path: "processors", component: ProcessorsComponent },
   { path: "**", redirectTo: "/" }
 ];

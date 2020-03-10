@@ -47,18 +47,19 @@ export class TaskManagerService implements OnInit {
     );
   }
 
-  getTask(id: number): Task {
+  getTask(id: string): Task {
     for (const task of this.taskList) {
-      if (task.taskId === id) {
+      if (task.id === id) {
         return task;
       }
     }
     return {
-      taskId: null,
-      date: null,
+      id: null,
+      taskID: null,
+      start: null,
       filePath: null,
       processor: null,
-      workflow: null,
+      workflowID: null,
       status: null,
       error: null
     };
@@ -90,26 +91,9 @@ export class TaskManagerService implements OnInit {
     );
   }
 
-  getWorkflow(id: number): Workflow {
+  getWorkflow(id: string): Workflow {
     for (const wf of this.workflows) {
-      if (wf.id === id) {
-        return wf;
-      }
-    }
-    return {
-      id: null,
-      name: null,
-      processor_name: null,
-      input_path: null,
-      output_path: null,
-      interval: null
-    };
-  }
-
-  getWorkflowByName(name: string): Workflow {
-    // TODO refresh list from backend data first or implement a data store (<-- this)
-    for (const wf of this.workflows) {
-      if (wf.name === name) {
+      if (id === wf.id) {
         return wf;
       }
     }
