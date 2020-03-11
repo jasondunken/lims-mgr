@@ -79,7 +79,9 @@ export class TasklistComponent implements OnInit {
   }
 
   getWorkflowName(id: string) {
-    return this.taskMgr.getWorkflow(id).name;
+    const name = this.taskMgr.getWorkflow(id).name;
+    console.log(name);
+    return name;
   }
 
   getFormattedDate(date) {
