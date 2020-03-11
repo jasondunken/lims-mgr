@@ -3,7 +3,6 @@ import { TaskManagerService } from "src/app/services/task-manager.service";
 import { ActivatedRoute } from "@angular/router";
 
 import { Workflow } from "src/app/models/workflow.model";
-import { Processor } from "src/app/models/processor.model";
 
 @Component({
   selector: "app-workflow-editor",
@@ -40,20 +39,20 @@ export class WorkflowEditorComponent implements OnInit {
 
   saveWorkflow(
     name: HTMLInputElement,
-    processor_name: HTMLSelectElement,
-    input_path: HTMLInputElement,
-    output_path: HTMLInputElement,
+    processor: HTMLSelectElement,
+    inputFolder: HTMLInputElement,
+    outputFolder: HTMLInputElement,
     interval: HTMLInputElement
   ): void {
-    if (processor_name.value === "null" || processor_name.value === undefined) {
+    if (processor.value === "null" || processor.value === undefined) {
       this.statusMessage = "Workflows must include a valid processor";
       return;
     }
     const newWorkflow = {
       name: name.value,
-      processor_name: processor_name.value,
-      input_path: input_path.value,
-      output_path: output_path.value,
+      processors: processor.value,
+      inputFolder: inputFolder.value,
+      outputFolder: outputFolder.value,
       interval: interval.value
     };
     this.taskMgr.addWorkflow(newWorkflow).subscribe(() => {

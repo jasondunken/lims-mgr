@@ -20,8 +20,8 @@ export class RegistrationComponent implements OnInit {
   }
 
   registerUser(
-    fName: HTMLInputElement,
-    lName: HTMLInputElement,
+    firstname: HTMLInputElement,
+    lastname: HTMLInputElement,
     username: HTMLInputElement,
     email: HTMLInputElement,
     password: HTMLInputElement
@@ -30,8 +30,8 @@ export class RegistrationComponent implements OnInit {
     this.errorMessage = "";
     this.auth
       .registerNewUser(
-        fName.value,
-        lName.value,
+        firstname.value,
+        lastname.value,
         username.value,
         email.value,
         password.value
