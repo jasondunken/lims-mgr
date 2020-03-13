@@ -41,6 +41,7 @@ export class TasklistComponent implements OnInit {
             this.taskList = [...tasks];
             this.sortableData.data = [...this.taskList];
             this.sortableData.sort = this.sort;
+            this.statusMessage = "";
           } else {
             this.statusMessage = "There are currently no Tasks scheduled";
           }
@@ -79,9 +80,7 @@ export class TasklistComponent implements OnInit {
   }
 
   getWorkflowName(id: string) {
-    const name = this.taskMgr.getWorkflow(id).name;
-    console.log(name);
-    return name;
+    return this.taskMgr.getWorkflow(id).name;
   }
 
   getFormattedDate(date) {

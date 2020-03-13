@@ -58,15 +58,15 @@ export class AuthService {
   // required params - username, password
   // No authentication required
   registerNewUser(
-    first_name: string,
-    last_name: string,
+    firstname: string,
+    lastname: string,
     email: string,
     username: string,
     password: string
   ): Observable<User> {
     const newUser = {
-      first_name,
-      last_name,
+      firstname,
+      lastname,
       email,
       username,
       password

@@ -34,6 +34,7 @@ export class UsersComponent implements OnInit {
             this.users = [...users];
             this.sortableData.data = [...this.users];
             this.sortableData.sort = this.sort;
+            this.statusMessage = "";
           } else {
             this.statusMessage = "There are currently no users registered";
           }

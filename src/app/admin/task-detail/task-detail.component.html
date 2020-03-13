@@ -8,8 +8,10 @@
         <p>Workflow: {{ getWorkflowName(task.workflowID) || "unknown" }}</p>
         <p>Status: {{ task.status || "unknown" }}</p>
         <p>Start Time: {{ task.start || "unknown" }}</p>
-        <p>Input File: {{ task.filePath || "unknown" }}</p>
-        <p>Processor: {{ task.processor || "unknown" }}</p>
+        <p>
+          Input Folder: {{ getInputFolderPath(task.workflowID) || "unknown" }}
+        </p>
+        <p>Processor: {{ getProcessorName(task.workflowID) || "unknown" }}</p>
         <p>Error: {{ task.error || "none" }}</p>
       </mat-card-content>
       <div class="controls">

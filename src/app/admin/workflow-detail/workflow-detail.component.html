@@ -8,9 +8,9 @@
       </mat-card-header>
       <mat-card-content>
         <p>ID: {{ workflow.id || "unknown" }}</p>
-        <p>Processor: {{ workflow.processor_name || "unknown" }}</p>
-        <p>Input Path: {{ workflow.input_path || "unknown" }}</p>
-        <p>Output Path: {{ workflow.output_path || "unknown" }}</p>
+        <p>Processor: {{ workflow.processor || "unknown" }}</p>
+        <p>Input Folder: {{ workflow.inputFolder || "unknown" }}</p>
+        <p>Output Folder: {{ workflow.outputFolder || "unknown" }}</p>
         <p>Interval: {{ workflow.interval || "unknown" }}</p>
       </mat-card-content>
       <div class="controls">

@@ -15,7 +15,9 @@
         </ng-container>
 
         <ng-container matColumnDef="workflow">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Workflow</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Workflow
+          </th>
           <td mat-cell *matCellDef="let element">
             <button mat-button (click)="gotoWorkflowDetail(element.workflowID)">
               {{ getWorkflowName(element.workflowID) || "unknown" }}

@@ -7,7 +7,7 @@
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
         <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="gotoWorkflowDetail(element.name)">
+          <button mat-button (click)="gotoWorkflowDetail(element.id)">
             {{ element.name || "unknown" }}
           </button>
         </td>
@@ -16,7 +16,7 @@
       <ng-container matColumnDef="processor">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Processor</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.processor_name || "unknown" }}
+          {{ element.processor || "unknown" }}
         </td>
       </ng-container>
 
@@ -25,7 +25,7 @@
           Input File Location
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ element.input_path || "unknown" }}
+          {{ element.inputFolder || "unknown" }}
         </td>
       </ng-container>
 
@@ -34,7 +34,7 @@
           Output File Destination
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ element.output_path || "unknown" }}
+          {{ element.outputFolder || "unknown" }}
         </td>
       </ng-container>
 

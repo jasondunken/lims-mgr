@@ -36,6 +36,7 @@ export class ProcessorsComponent implements OnInit {
             this.processors = [...processors];
             this.sortableData.data = [...this.processors];
             this.sortableData.sort = this.sort;
+            this.statusMessage = "";
           } else {
             this.statusMessage = "There are currently no Processors installed";
           }

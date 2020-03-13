@@ -33,6 +33,14 @@ export class TaskDetailComponent implements OnInit {
     return this.taskMgr.getWorkflow(id).name;
   }
 
+  getInputFolderPath(id: string) {
+    return this.taskMgr.getWorkflow(id).inputFolder;
+  }
+
+  getProcessorName(id: string) {
+    return this.taskMgr.getWorkflow(id).processor;
+  }
+
   cancelTask(id: number): void {
     // cancel task
   }

@@ -1,8 +1,8 @@
 export interface Workflow {
   id: string;
   name: string;
-  processor_name: string;
-  input_path: string;
-  output_path: string;
+  processor: string;
+  inputFolder: string;
+  outputFolder: string;
   interval: number;
 }

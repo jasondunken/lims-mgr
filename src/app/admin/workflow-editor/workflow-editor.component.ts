@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { TaskManagerService } from "src/app/services/task-manager.service";
-import { ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 
 import { Workflow } from "src/app/models/workflow.model";
 
@@ -18,6 +18,7 @@ export class WorkflowEditorComponent implements OnInit {
 
   constructor(
     private taskMgr: TaskManagerService,
+    private router: Router,
     private route: ActivatedRoute
   ) {}
 
@@ -50,7 +51,7 @@ export class WorkflowEditorComponent implements OnInit {
     }
     const newWorkflow = {
       name: name.value,
-      processors: processor.value,
+      processor: processor.value,
       inputFolder: inputFolder.value,
       outputFolder: outputFolder.value,
       interval: interval.value

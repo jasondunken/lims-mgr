@@ -42,6 +42,7 @@ export class WorkflowsComponent implements OnInit {
             this.workflows = [...workflows];
             this.sortableData.data = [...this.workflows];
             this.sortableData.sort = this.sort;
+            this.statusMessage = "";
           } else {
             this.statusMessage = "There are currently no Workflows available";
           }
@@ -56,8 +57,8 @@ export class WorkflowsComponent implements OnInit {
     );
   }
 
-  gotoWorkflowDetail(name: string) {
-    this.router.navigateByUrl("/workflows/detail-by-name/" + name);
+  gotoWorkflowDetail(id: string) {
+    this.router.navigateByUrl("/workflows/detail/" + id);
   }
 
   addWorkflow(): void {
