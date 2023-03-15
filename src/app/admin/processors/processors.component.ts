@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { Processor } from "src/app/models/processor.model";
 import { TaskManagerService } from "src/app/services/task-manager.service";
 import { MatSort } from "@angular/material/sort";
-import { MatTableDataSource } from "@angular/material/table";
+import { MatLegacyTableDataSource as MatTableDataSource } from "@angular/material/legacy-table";
 
 @Component({
   selector: "app-processors",

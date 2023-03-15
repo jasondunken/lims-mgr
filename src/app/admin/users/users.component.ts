@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 
 import { MatSort } from "@angular/material/sort";
-import { MatTableDataSource } from "@angular/material/table";
+import { MatLegacyTableDataSource as MatTableDataSource } from "@angular/material/legacy-table";
 
 import { AuthService } from "src/app/services/auth.service";
 import { User } from "src/app/models/user.model";
